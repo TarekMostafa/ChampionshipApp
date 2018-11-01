@@ -1,0 +1,35 @@
+<!-- https://github.com/flatlogic/angular-material-dashboard -->
+<div layout="row" layout-fill ng-controller="navController as navCtrl">
+  <md-sidenav class="md-whiteframe-z2 md-sidenav-left"
+    md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools" layout-align="center center">Championship App</h1>
+    </md-toolbar>
+    <md-list flex>
+      <div ng-repeat="item in navCtrl.items">
+        <md-list-item class="md-3-line" ng-href="{{item.navigation}}">
+          <div class="md-list-item-text" layout="column" layout-align="center center">
+            <h3>{{item.title}}</h3>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+      </div>
+    </md-list>
+  </md-sidenav>
+
+  <div layout="column" flex>
+    <md-toolbar layout="row" layout-align="center center" hide-gt-sm>
+      <section layout-align="start center" layout-fill flex>
+        <h1 class="md-toolbar-tools">Championship App</h1>
+      </section>
+      <section layout-align="end center">
+        <md-button aria-label="Menu" ng-click="navCtrl.toggleSidenav()" class="md-fab md-mini md-primary">
+          <md-icon ng-bind="'menu'"></md-icon>
+        </md-button>
+      </section>
+    </md-toolbar>
+    <md-content flex class="md-padding page-content">
+      <ng-view></ng-view>
+    </md-content>
+  </div>
+</div>

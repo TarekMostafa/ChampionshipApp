@@ -1,0 +1,28 @@
+<md-dialog aria-label="Edit Championship">
+  <form name="formEdit" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{editChampionshipCtrl.title}} Championship</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="editChampionshipCtrl.cancel()">
+          <md-icon ng-bind="'close'" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="md-dialog-content">
+      <md-input-container class="md-block">
+        <label>Championship Name</label>
+        <input md-maxlength="50" required md-no-asterisk name="name" ng-model="editChampionshipCtrl.championshipName">
+        <div ng-messages="formEdit.name.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="md-maxlength">The championship name must be less than 50 characters long.</div>
+        </div>
+      </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="editChampionshipCtrl.cancel()">Cancel</md-button>
+      <md-button ng-click="editChampionshipCtrl.saveDialog()"
+      ng-disabled="editChampionshipCtrl.disableSaveButton || formEdit.$invalid">Save</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

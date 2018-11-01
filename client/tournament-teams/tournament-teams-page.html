@@ -1,0 +1,42 @@
+<div ng-cloak md-padding>
+  <md-toolbar layout="row" layout-align="start center">
+    <section layout-align="start center" layout-fill flex>
+      <h2 class="md-toolbar-tools">
+        {{tournamentTeamsCtrl.tournament.name}} Teams 
+        ({{tournamentTeamsCtrl.tournamentTeams.length}} of
+        {{tournamentTeamsCtrl.tournament.no_of_teams}})
+      </h2>
+    </section>
+    <section layout-align="end center">
+      <md-button class="md-fab md-mini" aria-label="Save Teams" ng-click="tournamentTeamsCtrl.saveTournamentTeams()">
+        <md-icon ng-bind="'save'"></md-icon>
+        <md-tooltip md-direction="bottom">Save Tournament Teams</md-tooltip>
+      </md-button>
+    </section>
+  </md-toolbar>
+  <md-content class="md-padding" layout="row" >
+    <md-autocomplete
+        md-no-cache="true"
+        md-selected-item="tournamentTeamsCtrl.selectedTeam"
+        md-search-text="searchTeam"
+        md-items="team in tournamentTeamsCtrl.queryTeams(searchTeam)"
+        md-item-text="team.name"
+        placeholder="Select Teams" flex>
+      <md-item-template>
+        <span md-highlight-text="tournamentTeamsCtrl.searchTeam" md-highlight-flags="^i">{{team.name}}</span>
+      </md-item-template>
+      <md-not-found>
+        No teams matching "{{searchTeam}}" were found.
+      </md-not-found>
+    </md-autocomplete>
+    <md-button class="md-fab md-mini" aria-label="Add Team" ng-click="tournamentTeamsCtrl.addTeam()"
+      ng-disabled="tournamentTeamsCtrl.tournamentTeams.length >= tournamentTeamsCtrl.tournament.no_of_teams">
+      <md-icon ng-bind="'add'"></md-icon>
+      <md-tooltip md-direction="bottom">Add Team</md-tooltip>
+    </md-button>
+  </md-content>
+  <div layout="row" layout-align="center">
+    <teams-list-directive teams="tournamentTeamsCtrl.tournamentTeams" view="Card"
+      flagsserverpath="{{tournamentTeamsCtrl.flagsServerPath}}" remove="true"></teams-list-directive>
+  </div>
+</div>

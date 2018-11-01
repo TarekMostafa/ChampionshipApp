@@ -1,0 +1,73 @@
+<md-dialog aria-label="Add Stage">
+  <form name="formAdd" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{stageAddCtrl.title}} Stage</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="stageAddCtrl.cancel()">
+          <md-icon ng-bind="'close'" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="md-dialog-content">
+      <md-input-container class="md-block">
+        <label>Number of In Teams</label>
+        <input type="number" ng-readonly="true"
+            ng-model="stageAddCtrl.stage.no_in_teams">
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Stage Name</label>
+        <input md-maxlength="50" required md-no-asterisk name="name" ng-model="stageAddCtrl.stage.name">
+        <div ng-messages="formAdd.name.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="md-maxlength">The stage name must be less than 50 characters long.</div>
+        </div>
+      </md-input-container>
+      <md-input-container layout-fill>
+        <md-select ng-model="stageAddCtrl.stage.type" name="type"
+            placeholder="Select Stage Type" required ng-change="stageAddCtrl.stageTypeChange()">
+        <md-option ng-repeat="stageType in stageAddCtrl.stageTypes"
+            ng-value="stageType" >{{stageType}}</md-option>
+        </md-select>
+        <div ng-messages="formAdd.type.$error" style="color:maroon" role="alert">
+          <div ng-message="required">You must select Stage Type</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Number of Out Teams</label>
+        <input required md-no-asterisk name="outTeams" type="number" min="1" max="32"
+            ng-model="stageAddCtrl.stage.no_out_teams" ng-readonly="stageAddCtrl.Knockout_readonly">
+        <div ng-messages="formAdd.outTeams.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="max">Value must be less than or equal to 32.</div>
+          <div ng-message="min">Value must be greather than or equal to 1.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Number of Groups</label>
+        <input required md-no-asterisk name="groups" type="number" min="1" max="16"
+            ng-model="stageAddCtrl.stage.no_of_groups" ng-readonly="stageAddCtrl.Knockout_readonly">
+        <div ng-messages="formAdd.groups.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="max">Value must be less than or equal to 16.</div>
+          <div ng-message="min">Value must be greather than or equal to 1.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Number of Legs</label>
+        <input required md-no-asterisk name="legs" type="number" min="1" max="2"
+            ng-model="stageAddCtrl.stage.no_of_legs">
+        <div ng-messages="formAdd.legs.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="max">Value must be less than or equal to 2.</div>
+          <div ng-message="min">Value must be greather than or equal to 1.</div>
+        </div>
+      </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="stageAddCtrl.cancel()">Cancel</md-button>
+      <md-button ng-click="stageAddCtrl.addDialog()"
+      ng-disabled="stageAddCtrl.disableAddButton || formAdd.$invalid">Add</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,52 @@
+<md-dialog aria-label="Edit Tournament">
+  <form name="formEdit" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{editTournamentCtrl.title}} Tournament</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="editTournamentCtrl.cancel()">
+          <md-icon ng-bind="'close'" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="md-dialog-content">
+      <md-input-container class="md-block">
+        <label>Tournament Name</label>
+        <input md-maxlength="50" required md-no-asterisk name="name" ng-model="editTournamentCtrl.tournament.name">
+        <div ng-messages="formEdit.name.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="md-maxlength">The championship name must be less than or equal 50 characters long.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Number of Teams</label>
+        <input min="2" max="32" required md-no-asterisk name="noOfTeams" type="number"
+            ng-model="editTournamentCtrl.tournament.no_of_teams">
+        <div ng-messages="formEdit.noOfTeams.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="max">Value must be less than or equal to 32.</div>
+          <div ng-message="min">Value must be greather than or equal to 2.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Tournament Year</label>
+        <input required md-no-asterisk name="year" type="number" min="1900" max="2100"
+            ng-model="editTournamentCtrl.tournament.year">
+        <div ng-messages="formEdit.year.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="max">Value must be less than or equal to 2100.</div>
+          <div ng-message="min">Value must be greather than or equal to 1900.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Championship</label>
+        <input ng-model="editTournamentCtrl.selectedChampionship.name" ng-readonly="true">
+      </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="editTournamentCtrl.cancel()">Cancel</md-button>
+      <md-button ng-click="editTournamentCtrl.saveDialog()"
+      ng-disabled="editTournamentCtrl.disableSaveButton || formEdit.$invalid">Save</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

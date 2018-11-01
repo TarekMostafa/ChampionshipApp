@@ -1,0 +1,32 @@
+<div ng-cloak>
+  <div layout="row" layout-sm="column" layout-align="space-around" ng-show="homePageCtrl.loading">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <md-content class="md-padding" ng-repeat="championship in homePageCtrl.championships">
+    <md-card>
+      <md-toolbar layout="row" layout-align="start center">
+        <section layout-align="start center" layout-fill flex>
+          <h2 class="md-toolbar-tools">{{championship.name}}</h2>
+        </section>
+        <section layout-align="end center">
+          <md-button aria-label="Menu" class="md-raised md-primary"
+            ng-click="showTournament = !showTournament">
+            <md-icon ng-bind="(showTournament? 'keyboard_arrow_up' : 'keyboard_arrow_down')"></md-icon>
+          </md-button>
+        </section>
+      </md-toolbar>
+      <md-card-content ng-hide="!showTournament">
+        <md-list flex>
+          <div ng-repeat="tournament in championship.tournaments">
+            <md-list-item class="md-3-line" ng-href="#!tournament-details/{{tournament._id}}">
+              <div class="md-list-item-text" layout="column" layout-align="center center">
+                <h3>{{tournament.name}}</h3>
+              </div>
+            </md-list-item>
+            <md-divider ng-hide="$last"></md-divider>
+          </div>
+        </md-list>
+      </md-card-content>
+    </md-card>
+  </md-content>
+</div>

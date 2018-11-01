@@ -1,0 +1,64 @@
+<div ng-cloak>
+  <md-content class="md-padding">
+    <md-card>
+      <md-toolbar layout="row" layout-align="start center">
+        <section layout-align="start center" layout-fill flex>
+          <h2 class="md-toolbar-tools">Championships</h2>
+        </section>
+        <section layout-align="end center">
+          <md-button aria-label="Menu" class="md-raised md-warn"
+            ng-click="adminPageCtrl.showAddTournamentDialog($event)">
+            <span>Add Tournament</span>
+          </md-button>
+          <md-button aria-label="Menu" class="md-raised md-warn"
+            ng-click="adminPageCtrl.showAddChampionshipDialog($event)">
+            <span>Add Championship</span>
+          </md-button>
+        </section>
+      </md-toolbar>
+      <md-card-content>
+        <form name="formChampionship">
+          <md-input-container layout-fill>
+            <div layout="row" flex>
+              <md-select ng-model="adminPageCtrl.selectedChampionship" name="selectedChampionship"
+                placeholder="Select Championship" required ng-change="adminPageCtrl.showTournaments()" flex="90">
+                <md-option ng-repeat="championship in adminPageCtrl.championships"
+                  ng-value="championship" >{{championship.name}}</md-option>
+              </md-select>
+              <md-button class="md-fab md-mini" aria-label="edit" ng-disabled="!adminPageCtrl.selectedChampionship"
+                ng-click="adminPageCtrl.showEditChampionshipDialog($event,adminPageCtrl.selectedChampionship)">
+                <md-icon ng-bind="'edit'"></md-icon>
+                <md-tooltip md-direction="bottom">Edit Championship</md-tooltip>
+              </md-button>
+            </div>
+            <div ng-messages="formChampionship.selectedChampionship.$error" style="color:maroon" role="alert">
+              <div ng-message="required">You must select Championship</div>
+            </div>
+          </md-input-container>
+          <md-input-container ng-show="adminPageCtrl.showSelectTournament" layout-fill>
+            <div layout="row" flex>
+              <md-select ng-model="adminPageCtrl.selectedTournament" name="selectedTournament"
+                placeholder="Select Tournament" required flex="90">
+                <md-option ng-repeat="tournament in adminPageCtrl.selectedChampionship.tournaments"
+                  ng-value="tournament" >{{tournament.name}}</md-option>
+              </md-select>
+              <md-button class="md-fab md-mini" aria-label="edit" ng-disabled="!adminPageCtrl.selectedTournament"
+                ng-click="adminPageCtrl.showEditTournamentDialog($event,adminPageCtrl.selectedChampionship,
+                adminPageCtrl.selectedTournament)">
+                <md-icon ng-bind="'edit'"></md-icon>
+                <md-tooltip md-direction="bottom">Edit Tournament</md-tooltip>
+              </md-button>
+            </div>
+            <div ng-messages="formChampionship.selectedTournament.$error" style="color:maroon" role="alert">
+              <div ng-message="required">You must select Tournament</div>
+            </div>
+          </md-input-container>
+        </form>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button type="submit" class="md-raised md-primary" ng-disabled="formChampionship.$invalid"
+        ng-click="adminPageCtrl.showGridBottomSheet()">Manage</md-button>
+      </md-card-actions>
+    </md-card>
+  </md-content>
+</div>

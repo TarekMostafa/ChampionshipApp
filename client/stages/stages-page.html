@@ -1,0 +1,52 @@
+<div ng-cloak md-padding>
+  <md-toolbar layout="row" layout-align="start center">
+    <section layout-align="start center" layout-fill flex>
+      <h2 class="md-toolbar-tools">
+        {{stagesCtrl.tournament.name}} Stages
+      </h2>
+    </section>
+    <section layout-align="end center">
+      <md-button class="md-fab md-mini" aria-label="Save Stages" ng-click="stagesCtrl.saveStages()">
+        <md-icon ng-bind="'save'"></md-icon>
+        <md-tooltip md-direction="bottom">Save Stages</md-tooltip>
+      </md-button>
+    </section>
+  </md-toolbar>
+  <md-content class="md-padding" layout="column" >
+    <div>
+      <md-button class="md-fab md-mini" aria-label="Add Stage" ng-click="stagesCtrl.addStage()">
+        <md-icon ng-bind="'add'"></md-icon>
+        <md-tooltip md-direction="bottom">Add Stage</md-tooltip>
+      </md-button>
+      <md-button class="md-fab md-mini" aria-label="Remove Stages" ng-click="stagesCtrl.removeStage()"
+        ng-disabled="stagesCtrl.stages.length <= 0">
+        <md-icon ng-bind="'remove'"></md-icon>
+        <md-tooltip md-direction="bottom">Remove Stage</md-tooltip>
+      </md-button>
+    </div>
+    <table class="table table-hover">
+      <thead>
+          <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th># of in Teams</th>
+              <th># of out Teams</th>
+              <th># of Groups</th>
+              <th># of Legs</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="stage in stagesCtrl.stages">
+          <td>{{$index+1}}</td>
+          <td>{{stage.name}}</td>
+          <td>{{stage.type}}</td>
+          <td>{{stage.no_in_teams}}</td>
+          <td>{{stage.no_out_teams}}</td>
+          <td>{{stage.no_of_groups}}</td>
+          <td>{{stage.no_of_legs}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </md-content>
+</div>

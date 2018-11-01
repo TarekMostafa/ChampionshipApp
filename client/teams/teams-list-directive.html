@@ -1,0 +1,40 @@
+<md-content ng-if="view == 'Table'">
+  <table class="table table-hover" ng-if="teams.length > 0">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>ISO Code</th>
+            <th>Continent</th>
+            <th>Flag</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="team in teams">
+        <td>{{$index+1}}</td>
+        <td>{{team.name}}</td>
+        <td>{{team.iso_code}}</td>
+        <td>{{team.continent}}</td>
+        <td><img ng-src="{{flagsserverpath}}{{team.flag_location}}" style="height:50%" /></td>
+      </tr>
+    </tbody>
+  </table>
+</md-content>
+
+<md-content layout="row" layout-wrap layout-align="center" ng-if="view == 'Card'">
+  <md-card ng-repeat="team in teams" style="width:144px">
+    <div class="md-media-sm">
+      <img ng-src="{{flagsserverpath}}{{team.flag_location}}" class="md-card-image" alt="Washed Out"/>
+    </div>
+    <md-card-content layout="column">
+      <span class="md-body-2" md-truncate>
+        {{team.name}}
+        <md-tooltip md-direction="top">{{team.name}}</md-tooltip>
+      </span>
+      <span class="md-caption">{{team.continent}}</span>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button ng-show="remove" ng-click="removeTeam($index)">Remove</md-button>
+    </md-card-actions>
+  </md-card>
+</md-content>

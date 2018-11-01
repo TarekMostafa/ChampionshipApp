@@ -1,0 +1,31 @@
+<div layout="row" layout-align="center">
+  <md-input-container>
+    <label>Team</label>
+    <input type="text" ng-model="teamsListPageCtrl.enteredTeam" ng-change="teamsListPageCtrl.reloadTeams()">
+  </md-input-container>
+  <md-input-container>
+    <md-select ng-model="teamsListPageCtrl.selectedContinent" placeholder="Select a Continent" ng-change="teamsListPageCtrl.reloadTeams()">
+      <md-option value=""></md-option>
+      <md-option ng-value="continent" ng-repeat="continent in teamsListPageCtrl.continents">{{ continent }}</md-option>
+    </md-select>
+  </md-input-container>
+  <md-input-container>
+    <md-switch ng-model="teamsListPageCtrl.isViewTable" aria-label="View" ng-true-value="'Card'" ng-false-value="'Table'">
+    {{ teamsListPageCtrl.isViewTable }}
+    </md-switch>
+  </md-input-container>
+</div>
+
+<alert-directive message="{{teamsListPageCtrl.message}}" ng-show="teamsListPageCtrl.message != ''"></alert-directive>
+
+<div>
+  <teams-list-directive teams="teamsListPageCtrl.teams" view="{{teamsListPageCtrl.isViewTable}}"
+    flagsserverpath="{{teamsListPageCtrl.flagsServerPath}}"></teams-list-directive>
+</div>
+
+<div layout="row" layout-sm="column" layout-align="space-around" ng-show="teamsListPageCtrl.loading">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+<div layout="row" layout-align="center" ng-hide="teamsListPageCtrl.loading || !teamsListPageCtrl.showMoreBtn">
+  <md-button id='btnMore' flex class="md-raised md-primary" ng-click="teamsListPageCtrl.loadTeams()">more</md-button>
+<div>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="championshipApp">
+  <head>
+    <title>Championship App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/client/css/my-styles.css">
+    <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="/node_modules/angular/angular.js"></script>
+    <script src="/node_modules/angular-route/angular-route.js"></script>
+    <script src="/node_modules/angular-animate/angular-animate.js"></script>
+    <script src="/node_modules/angular-aria/angular-aria.js"></script>
+    <script src="/node_modules/angular-material/angular-material.js"></script>
+    <script src="/node_modules/angular-messages/angular-messages.js"></script>
+
+    <script src="/client/config/championship-app.js"></script>
+    <script src="/client/config/championship-config.js"></script>
+
+    <script src="/client/config/championship-param-service.js"></script>
+    <script src="/client/teams/teams-http-service.js"></script>
+    <script src="/client/championship/championship-http-service.js"></script>
+    <script src="/client/tournament/tournament-http-service.js"></script>
+    <script src="/client/tournament-teams/tournament-teams-http-service.js"></script>
+    <script src="/client/stages/stages-http-service.js"></script>
+
+    <script src="/client/teams/teams-list-directive.js"></script>
+    <script src="/client/alert/alert-directive.js"></script>
+
+    <script src="/client/navigation-bar/navigation-bar-controller.js"></script>
+    <script src="/client/home/home-controller.js"></script>
+    <script src="/client/admin/admin-controller.js"></script>
+    <script src="/client/admin/admin-buttom-sheet-controller.js"></script>
+    <script src="/client/championship/championship-add-controller.js"></script>
+    <script src="/client/championship/championship-edit-controller.js"></script>
+    <script src="/client/tournament/tournament-add-controller.js"></script>
+    <script src="/client/tournament/tournament-edit-controller.js"></script>
+    <script src="/client/teams/teams-list-controller.js"></script>
+    <script src="/client/tournament-details/tournament-details-controller.js"></script>
+    <script src="/client/tournament-teams/tournament-teams-controller.js"></script>
+    <script src="/client/stages/stages-controller.js"></script>
+    <script src="/client/stages/stage-add-controller.js"></script>
+
+  </head>
+  <body>
+    <div layout="row" layout-fill ng-include="'client/navigation-bar/navigation-bar-page.html'">
+    </div>
+  </body>
+</html>

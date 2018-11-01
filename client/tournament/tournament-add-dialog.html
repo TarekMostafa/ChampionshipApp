@@ -1,0 +1,58 @@
+<md-dialog aria-label="Add Tournament">
+  <form name="formAdd" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{addTournamentCtrl.title}} Tournament</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="addTournamentCtrl.cancel()">
+          <md-icon ng-bind="'close'" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="md-dialog-content">
+      <md-input-container class="md-block">
+        <label>Tournament Name</label>
+        <input md-maxlength="50" required md-no-asterisk name="name" ng-model="addTournamentCtrl.tournament.name">
+        <div ng-messages="formAdd.name.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="md-maxlength">The championship name must be less than or equal 50 characters long.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Number of Teams</label>
+        <input min="2" max="32" required md-no-asterisk name="noOfTeams" type="number"
+            ng-model="addTournamentCtrl.tournament.no_of_teams">
+        <div ng-messages="formAdd.noOfTeams.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="max">Value must be less than or equal to 32.</div>
+          <div ng-message="min">Value must be greather than or equal to 2.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Tournament Year</label>
+        <input required md-no-asterisk name="year" type="number" min="1900" max="2100"
+            ng-model="addTournamentCtrl.tournament.year">
+        <div ng-messages="formAdd.year.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="max">Value must be less than or equal to 2100.</div>
+          <div ng-message="min">Value must be greather than or equal to 1900.</div>
+        </div>
+      </md-input-container>
+      <md-input-container layout-fill>
+        <md-select ng-model="addTournamentCtrl.selectedChampionship" name="selectedChampionship"
+            placeholder="Select Championship" required>
+        <md-option ng-repeat="championship in addTournamentCtrl.championships"
+            ng-value="championship" >{{championship.name}}</md-option>
+        </md-select>
+        <div ng-messages="formAdd.selectedChampionship.$error" style="color:maroon" role="alert">
+          <div ng-message="required">You must select Championship</div>
+        </div>
+      </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="addTournamentCtrl.cancel()">Cancel</md-button>
+      <md-button ng-click="addTournamentCtrl.saveDialog()"
+      ng-disabled="addTournamentCtrl.disableSaveButton || formAdd.$invalid">Save</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,80 @@
+/*
+* Bootswatch v4.1.3
+* Homepage: https://bootswatch.com
+* Copyright 2012-2018 Thomas Park
+* Licensed under MIT
+* Based on Bootstrap
+*/
+/*
+* Table CSS
+*/
+table {
+  border-collapse: collapse;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+/*
+* Alert CSS
+*/
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-heading {
+  color: inherit;
+}
+
+.alert-link {
+  font-weight: 700;
+}
+
+.alert-dismissible {
+  padding-right: 4rem;
+}
+
+.alert-dismissible .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.75rem 1.25rem;
+  color: inherit;
+}
+
+.alert-danger {
+  color: #670f12;
+  background-color: #f4d2d3;
+  border-color: #efbfc1;
+}
+
+.alert-danger hr {
+  border-top-color: #eaabad;
+}
+
+.alert-danger .alert-link {
+  color: #3a090a;
+}

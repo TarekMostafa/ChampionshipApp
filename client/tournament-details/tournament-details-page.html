@@ -1,0 +1,24 @@
+<div ng-cloak>
+  <md-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="teams">
+        <md-content class="md-padding">
+          <div layout="row" layout-align="center">
+            <teams-list-directive teams="tournamentDetailsCtrl.tournamentTeams" view="Card"
+              flagsserverpath="{{tournamentDetailsCtrl.flagsServerPath}}"></teams-list-directive>
+          </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="groups">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Groups</h1>
+        </md-content>
+      </md-tab>
+      <md-tab label="matches">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Matches</h1>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+</div>

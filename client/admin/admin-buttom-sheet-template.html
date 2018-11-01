@@ -1,0 +1,11 @@
+<md-bottom-sheet class="md-grid" layout="column">
+  <div ng-cloak>
+    <md-list flex layout="row" layout-align="center center">
+      <md-list-item ng-repeat = "item in adminButtomSheetCtrl.items">
+        <md-button ng-click="adminButtomSheetCtrl.itemNavigation(item.navigation)" class="md-primary">
+          <div class="md-inline-list-icon-label">{{item.title}}</div>
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </div>
+</md-bottom-sheet>
