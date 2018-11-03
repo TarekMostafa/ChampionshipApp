@@ -1,20 +1,13 @@
 var mongoose = require('mongoose');
 var uri = 'mongodb://localhost:27017/Championshipdb';
+var options = {useNewUrlParser: true, useFindAndModify: false};
 
 var open = function(callBack){
-  mongoose.connect(uri, { useNewUrlParser: true, useFindAndModify: false })
-  .then(function(){
-    console.log("connected successfully to mongoose");
-    callBack(null);
-  })
-  .catch(function(err){
-    console.log("From mongoose-connection : " + err);
-    callBack(err);
-  });
+  return mongoose.connect(uri, options);
 }
 
-var close = function(){
-  mongoose.disconnect();
+var close = function() {
+  mongoose.connection.close();
 }
 
 module.exports = {

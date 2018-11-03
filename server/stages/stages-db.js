@@ -3,12 +3,8 @@ var mongooseConnection = require('../global-modules/mongoose-connection');
 var mongoose = require('mongoose');
 
 var saveStages = function (stagesObj, callBack) {
-  mongooseConnection.open(function(connection_error) {
-    if (connection_error) {
-      callBack(connection_error);
-      return;
-    }
-
+  mongooseConnection.open()
+  .then(function(){
     var updateObj = {
       "tournaments.$[elem].stages": stagesObj.stages,
       "tournaments.$[elem].current_stage": 0
@@ -16,15 +12,17 @@ var saveStages = function (stagesObj, callBack) {
 
     var arrayFilters = [ { "elem._id": mongoose.Types.ObjectId(stagesObj.tournamentId) } ];
 
-    championshipModel.findOneAndUpdate({},
-      {$set: updateObj}, {arrayFilters : arrayFilters, returnNewDocument: true, upsert:true}, function(err, obj){
-        mongooseConnection.close();
-        if (err) {
-          callBack(err);
-        } else {
-          callBack(null);
-        }
-      });
+    return championshipModel.findOneAndUpdate({},
+      {$set: updateObj}, {arrayFilters : arrayFilters, returnNewDocument: true, upsert:true});
+  })
+  .then(function(){
+    mongooseConnection.close();
+    callBack(null);
+  })
+  .catch(function(error) {
+    console.log("mongoose [saveStages] : " + error);
+    mongooseConnection.close();
+    callBack(error);
   });
 }
 

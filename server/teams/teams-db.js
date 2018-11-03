@@ -2,11 +2,8 @@ var teamsModel = require('./teams-model').teamModel;
 var mongooseConnection = require('../global-modules/mongoose-connection');
 
 var getTeams = function(teamName, continent, limit, skip, callBack){
-  mongooseConnection.open(function(connection_error){
-    if (connection_error) {
-      callBack(connection_error, null);
-      return;
-    }
+  mongooseConnection.open()
+  .then(function(){
     // Set Teams Query
     var query = {
       is_active: true
@@ -20,39 +17,39 @@ var getTeams = function(teamName, continent, limit, skip, callBack){
       query.continent = continent;
     }
     // Find Teams
-    teamsModel.find(query)
+    return teamsModel.find(query)
               .limit(parseInt(limit,10))
-              .skip(parseInt(skip,10))
-              .exec(function(err, data){
-      mongooseConnection.close();
-      if (err) {
-        callBack(err, null);
-      } else {
-        callBack(null, data);
-      }
-    });
+              .skip(parseInt(skip,10));
+  })
+  .then(function(teams){
+    mongooseConnection.close();
+    callBack(null, teams);
+  })
+  .catch(function(error) {
+    console.log("mongoose [getTeams] : " + error);
+    mongooseConnection.close();
+    callBack(error);
   });
 }
 
 var getTeamsContinents = function(callBack){
-  mongooseConnection.open(function(connection_error){
-    if (connection_error) {
-      callBack(connection_error, null);
-      return;
-    }
+  mongooseConnection.open()
+  .then(function(){
     // Set Teams Continents Query
     var query = {
       is_active: true
     };
     // Find Continents
-    teamsModel.find(query).distinct('continent', function(err, continents){
-      mongooseConnection.close();
-      if (err) {
-        callBack(err, null);
-      } else {
-        callBack(null, continents);
-      }
-    });
+    return teamsModel.find(query).distinct('continent');
+  })
+  .then(function(continents){
+    mongooseConnection.close();
+    callBack(null, continents);
+  })
+  .catch(function(error) {
+    console.log("mongoose [getTeamsContinents] : " + error);
+    mongooseConnection.close();
+    callBack(error);
   });
 }
 
