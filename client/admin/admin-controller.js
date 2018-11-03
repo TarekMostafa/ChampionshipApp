@@ -1,14 +1,13 @@
 (function (){
+  'use strict';
   var myApp = angular.module("championshipApp");
   myApp.controller("adminPageController", function ($mdBottomSheet, $mdDialog,
     $mdToast, championshipHttpService){
 
     var _this = this;
-
-    this.showTournaments = function (){
-      _this.showSelectTournament = true;
-      _this.selectedTournament = "";
-    }
+    this.championships = [];
+    this.selectedChampionship = "";
+    this.selectedTournament = "";
 
     this.showGridBottomSheet = function () {
       $mdBottomSheet.show({
@@ -27,7 +26,7 @@
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:false,
-        fullscreen: _this.customFullscreen // Only for -xs, -sm breakpoints.
+        //fullscreen: _this.customFullscreen // Only for -xs, -sm breakpoints.
       })
       .then(function(answer) {
         _this.loadChampionships();
@@ -45,7 +44,7 @@
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:false,
-        fullscreen: _this.customFullscreen // Only for -xs, -sm breakpoints.
+        //fullscreen: _this.customFullscreen // Only for -xs, -sm breakpoints.
       })
       .then(function(answer) {
         _this.loadChampionships();
@@ -75,7 +74,8 @@
       });
     };
 
-    this.showEditTournamentDialog = function(ev, selectedChampionship, selectedTournament) {
+    this.showEditTournamentDialog = function(ev, selectedChampionship,
+      selectedTournament) {
       $mdDialog.show({
         locals: {
           championships: _this.championships,
@@ -104,14 +104,9 @@
       .then(function(response){
         _this.championships = response.data;
       }).catch(function(err){
-
       });
     }
 
-    this.championships = [];
-    this.selectedChampionship = "";
-    this.selectedTournament = "";
-    this.showSelectTournament = false;
     this.loadChampionships();
 
   })

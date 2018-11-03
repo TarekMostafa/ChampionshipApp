@@ -4,7 +4,7 @@
   myApp.controller("groupsController", function(tournament,
     championshipParamService, groupsHttpService, $mdToast){
 
-    _this = this;
+    var _this = this;
     this.flagsServerPath = championshipParamService.flagsServerPath;
     this.tournament = tournament;
     this.availableTeams = tournament.tournament_teams;
@@ -75,12 +75,12 @@
     }
 
     this.saveGroups = function () {
-      var sendObj = {
-        groups: _this.groups,
-        tournamentId: _this.tournament._id,
-        stageId: _this.currentStage._id
-      }
-      groupsHttpService.saveGroups(sendObj)
+      var groupViewModel = groupsHttpService.getGroupsViewModel();
+      groupViewModel.groups = _this.groups;
+      groupViewModel.tournamentId = _this.tournament._id;
+      groupViewModel.stageId = _this.currentStage._id;
+      // Call Http post request
+      groupsHttpService.saveGroups(groupViewModel)
       .then(function(response){
         $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
       })

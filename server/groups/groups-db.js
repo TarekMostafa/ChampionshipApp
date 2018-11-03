@@ -9,8 +9,6 @@ var saveGroups = function (groupsObj, callBack) {
       return;
     }
 
-    console.log(groupsObj.groups[0].group_teams);
-
     var updateObj = {
       "tournaments.$[elem].stages.$[stage].groups": groupsObj.groups
     };

@@ -11,7 +11,9 @@
       </md-tab>
       <md-tab label="groups">
         <md-content class="md-padding">
-          <h1 class="md-display-2">Groups</h1>
+          <groups-directive groups="tournamentDetailsCtrl.groups"
+            flagsserverpath="{{tournamentDetailsCtrl.flagsServerPath}}"
+            edit="false"></groups-directive>
         </md-content>
       </md-tab>
       <md-tab label="matches">

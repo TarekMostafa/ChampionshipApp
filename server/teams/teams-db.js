@@ -7,16 +7,16 @@ var getTeams = function(teamName, continent, limit, skip, callBack){
       callBack(connection_error, null);
       return;
     }
-
+    // Set Teams Query
     var query = {
       is_active: true
     };
     // Check teamName passed parameter
-    if(teamName != null && teamName.length != 0){
+    if(teamName != undefined && teamName != null && teamName.length != 0){
       query.name = { $regex: ".*" + teamName + ".*", $options: 'i' };
     }
     // Check continent passed parameter
-    if(continent.length !=0){
+    if(continent != undefined && continent != null && continent.length != 0){
       query.continent = continent;
     }
     // Find Teams
@@ -40,11 +40,11 @@ var getTeamsContinents = function(callBack){
       callBack(connection_error, null);
       return;
     }
-
+    // Set Teams Continents Query
     var query = {
       is_active: true
     };
-
+    // Find Continents
     teamsModel.find(query).distinct('continent', function(err, continents){
       mongooseConnection.close();
       if (err) {

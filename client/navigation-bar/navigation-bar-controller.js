@@ -1,8 +1,9 @@
 (function(){
-  myApp = angular.module("championshipApp");
+  'use strict';
+  var myApp = angular.module("championshipApp");
   myApp.controller("navController", function($mdSidenav, $location){
 
-    _this = this;
+    var _this = this;
 
     this.toggleSidenav = function(){
       $mdSidenav('left').toggle();

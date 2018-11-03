@@ -1,5 +1,6 @@
 (function () {
-  myApp = angular.module("championshipApp");
+  'use strict';
+  var myApp = angular.module("championshipApp");
   myApp.controller("stageAddController", function($mdDialog, no_of_teams){
 
     var _this = this;

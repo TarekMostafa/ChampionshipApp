@@ -1,16 +1,17 @@
 (function () {
-  myApp = angular.module("championshipApp");
+  'use strict';
+  var myApp = angular.module("championshipApp");
   myApp.controller("stagesController", function(tournament, $mdDialog,
     stagesHttpService, $mdToast){
 
     var _this = this;
 
     this.saveStages = function () {
-      var sendObj = {
-        tournamentId: _this.tournament._id,
-        stages: _this.stages
-      }
-      stagesHttpService.saveStages(sendObj)
+      var stageViewModel = stagesHttpService.getStagesViewModel();
+      stageViewModel.tournamentId = _this.tournament._id;
+      stageViewModel.stages = _this.stages;
+      // Call Http post request
+      stagesHttpService.saveStages(stageViewModel)
       .then(function(response){
         $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
       })

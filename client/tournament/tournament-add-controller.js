@@ -12,11 +12,11 @@
 
     this.saveDialog = function() {
       _this.disableSaveButton = true;
-      var sendObj = {
-        championshipId : _this.selectedChampionship._id,
-        tournament:  _this.tournament
-      };
-      tournamentHttpService.addNewTournament(sendObj)
+      tournamentViewModel = tournamentHttpService.getTournamentViewModel();
+      tournamentViewModel.championshipId = _this.selectedChampionship._id;
+      tournamentViewModel.tournament = _this.tournament;
+      // Call Http put request
+      tournamentHttpService.addTournament(tournamentViewModel)
       .then(function(response){
         $mdDialog.hide(response.data);
       }).catch(function(err){

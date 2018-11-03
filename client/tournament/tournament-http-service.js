@@ -2,7 +2,14 @@
   var myApp = angular.module("championshipApp");
   myApp.service("tournamentHttpService", function($http){
 
-    this.addNewTournament = function (inTournamentObj){
+    this.getTournamentViewModel = function () {
+      return {
+        championshipId: "",
+        tournament: {}
+      }
+    }
+
+    this.addTournament = function (inTournamentObj){
       return $http({
         url: '/tournament',
         method: 'PUT',

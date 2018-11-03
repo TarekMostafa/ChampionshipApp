@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   var myApp = angular.module("championshipApp");
   myApp.controller("teamsListPageController", function(championshipParamService,
     teamHttpService){

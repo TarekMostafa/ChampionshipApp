@@ -5,26 +5,21 @@
         <section layout-align="start center" layout-fill flex>
           <h2 class="md-toolbar-tools">Championships</h2>
         </section>
-        <section layout-align="end center">
-          <md-button aria-label="Menu" class="md-raised md-warn"
-            ng-click="adminPageCtrl.showAddTournamentDialog($event)">
-            <span>Add Tournament</span>
-          </md-button>
-          <md-button aria-label="Menu" class="md-raised md-warn"
-            ng-click="adminPageCtrl.showAddChampionshipDialog($event)">
-            <span>Add Championship</span>
-          </md-button>
-        </section>
       </md-toolbar>
       <md-card-content>
         <form name="formChampionship">
           <md-input-container layout-fill>
             <div layout="row" flex>
               <md-select ng-model="adminPageCtrl.selectedChampionship" name="selectedChampionship"
-                placeholder="Select Championship" required ng-change="adminPageCtrl.showTournaments()" flex="90">
+                placeholder="Select Championship" required flex="90">
                 <md-option ng-repeat="championship in adminPageCtrl.championships"
                   ng-value="championship" >{{championship.name}}</md-option>
               </md-select>
+              <md-button class="md-fab md-mini" aria-label="add"
+                ng-click="adminPageCtrl.showAddChampionshipDialog($event)">
+                <md-icon ng-bind="'add'"></md-icon>
+                <md-tooltip md-direction="bottom">Add Championship</md-tooltip>
+              </md-button>
               <md-button class="md-fab md-mini" aria-label="edit" ng-disabled="!adminPageCtrl.selectedChampionship"
                 ng-click="adminPageCtrl.showEditChampionshipDialog($event,adminPageCtrl.selectedChampionship)">
                 <md-icon ng-bind="'edit'"></md-icon>
@@ -35,13 +30,18 @@
               <div ng-message="required">You must select Championship</div>
             </div>
           </md-input-container>
-          <md-input-container ng-show="adminPageCtrl.showSelectTournament" layout-fill>
+          <md-input-container layout-fill>
             <div layout="row" flex>
               <md-select ng-model="adminPageCtrl.selectedTournament" name="selectedTournament"
                 placeholder="Select Tournament" required flex="90">
                 <md-option ng-repeat="tournament in adminPageCtrl.selectedChampionship.tournaments"
                   ng-value="tournament" >{{tournament.name}}</md-option>
               </md-select>
+              <md-button class="md-fab md-mini" aria-label="add"
+                ng-click="adminPageCtrl.showAddTournamentDialog($event)">
+                <md-icon ng-bind="'add'"></md-icon>
+                <md-tooltip md-direction="bottom">Add Tournament</md-tooltip>
+              </md-button>
               <md-button class="md-fab md-mini" aria-label="edit" ng-disabled="!adminPageCtrl.selectedTournament"
                 ng-click="adminPageCtrl.showEditTournamentDialog($event,adminPageCtrl.selectedChampionship,
                 adminPageCtrl.selectedTournament)">

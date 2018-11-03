@@ -1,5 +1,6 @@
 (function (){
-  myApp = angular.module("championshipApp");
+  'use strict';
+  var myApp = angular.module("championshipApp");
   myApp.controller("homePageController", function (championshipHttpService){
 
     var _this = this;

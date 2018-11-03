@@ -12,7 +12,7 @@
     <md-dialog-content class="md-dialog-content">
       <md-input-container class="md-block">
         <label>Championship Name</label>
-        <input md-maxlength="50" required md-no-asterisk name="name" ng-model="editChampionshipCtrl.championshipName">
+        <input md-maxlength="50" required md-no-asterisk name="name" ng-model="editChampionshipCtrl.championship.name">
         <div ng-messages="formEdit.name.$error">
           <div ng-message="required">This is required.</div>
           <div ng-message="md-maxlength">The championship name must be less than 50 characters long.</div>
