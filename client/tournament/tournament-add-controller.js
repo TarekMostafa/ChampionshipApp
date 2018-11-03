@@ -28,7 +28,8 @@
     this.tournament = {
       name: "",
       no_of_teams: 0,
-      year: 0
+      year: 0,
+      current_stage: null
     }
     this.selectedChampionship = null;
     this.title = "Add";

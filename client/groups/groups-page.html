@@ -1,0 +1,52 @@
+<div ng-cloak md-padding>
+  <md-toolbar layout="row" layout-align="start center">
+    <section layout-align="start center" layout-fill flex>
+      <h2 class="md-toolbar-tools">
+        {{groupsCtrl.tournament.name}} Groups
+      </h2>
+    </section>
+    <section layout-align="end center">
+      <md-button class="md-fab md-mini" aria-label="Save Groups" ng-click="groupsCtrl.saveGroups()">
+        <md-icon ng-bind="'save'"></md-icon>
+        <md-tooltip md-direction="bottom">Save Groups</md-tooltip>
+      </md-button>
+    </section>
+  </md-toolbar>
+  <div layout-gt-sm="row" layout="column">
+    <div flex-gt-sm="30" flex>
+    <md-content>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">Available Tournament Teams = {{groupsCtrl.availableTeams.length}}</md-subheader>
+        <div layout="row" layout-align="center center">
+          <md-input-container>
+            <label>Groups</label>
+            <md-select ng-model="groupsCtrl.selectedGroupNumber">
+              <md-option></md-option>
+              <md-option ng-repeat="group in groupsCtrl.groups" ng-value="group.number">
+                {{group.number}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-button class="md-icon-button md-primary" ng-click="groupsCtrl.moveToGroup()" aria-label="move">
+            <md-icon ng-bind="'arrow_forward'"></md-icon>
+          </md-button>
+        </div>
+        <md-list-item class="md-3-line md-long-text" ng-repeat="tour_team in groupsCtrl.availableTeams">
+          <md-checkbox ng-model="tour_team.selected"></md-checkbox>
+          <span>
+            <img ng-src="{{groupsCtrl.flagsServerPath}}{{tour_team.team.flag_location}}" alt=""/>
+            <md-tooltip md-direction="right">{{tour_team.team.name}}</md-tooltip>
+          </span>
+          <md-divider ></md-divider>
+        </md-list-item>
+      </md-list>
+    </md-content>
+    </div>
+    <md-divider></md-divider>
+    <div flex-gt-sm="70" flex>
+      <groups-directive groups="groupsCtrl.groups"
+        flagsserverpath="{{groupsCtrl.flagsServerPath}}"
+        remove-fn="groupsCtrl.removeFromGroup" edit="true"></groups-directive>
+    </div>
+  </div>
+</div>

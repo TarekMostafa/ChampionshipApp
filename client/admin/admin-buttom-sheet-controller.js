@@ -13,7 +13,7 @@
     this.items = [
       {title: "Teams", navigation: "#!tournament-teams/"+tournament._id},
       {title: "Stages", navigation: "#!stages/"+tournament._id},
-      {title: "Groups & Matches", navigation: ""},
+      {title: "Groups & Matches", navigation: "#!groups/"+tournament._id},
     ];
 
   });

@@ -1,0 +1,42 @@
+<md-content>
+  <md-list flex ng-repeat="group in groups">
+    <md-subheader class="md-no-sticky">Group {{group.number}}</md-subheader>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>MP</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>GD</th>
+          <th>Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="groupTeam in group.group_teams">
+          <td style="width: 70%">
+            <md-button class="md-icon-button md-primary" ng-click="removeFn(group.number, $index, groupTeam.team)"
+            aria-label="move" ng-if="edit==='true'">
+              <md-icon ng-bind="'arrow_back'"></md-icon>
+            </md-button>
+            <img ng-src="{{flagsserverpath}}{{groupTeam.team.flag_location}}" alt=""
+            style="height:50%; display: inline"/>
+            {{groupTeam.team.name}}
+          </td>
+          <td>{{groupTeam.match_played}}</td>
+          <td>{{groupTeam.win}}</td>
+          <td>{{groupTeam.draw}}</td>
+          <td>{{groupTeam.lose}}</td>
+          <td>{{groupTeam.goal_for}}</td>
+          <td>{{groupTeam.goal_against}}</td>
+          <td>{{groupTeam.goal_for-groupTeam.goal_against}}</td>
+          <td>{{groupTeam.points}}</td>
+        <tr>
+      </tbody>
+    </table>
+    <md-divider></md-divider>
+  </md-list>
+</md-content>

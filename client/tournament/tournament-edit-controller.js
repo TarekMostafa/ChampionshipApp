@@ -29,7 +29,8 @@
       _id: selectedTournament._id,
       name: selectedTournament.name,
       no_of_teams: selectedTournament.no_of_teams,
-      year: selectedTournament.year
+      year: selectedTournament.year,
+      current_stage: null
     }
     this.selectedChampionship = selectedChampionship;
     this.title = "Edit";

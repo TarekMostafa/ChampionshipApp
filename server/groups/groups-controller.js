@@ -1,14 +1,14 @@
 var express = require('express');
-var stagesDB = require('./stages-db');
+var groupsDB = require('./groups-db');
 
 var router = express.Router();
 
 router.post('/', function(req, res){
-  stagesDB.saveStages(req.body.stagesObj, function(err){
+  groupsDB.saveGroups(req.body.groupsObj, function(err){
     if(err) {
       res.status(500).send(err);
     } else {
-      res.status(200).send("Stages were updated successfully");
+      res.status(200).send("Groups were updated successfully");
     }
   });
 });

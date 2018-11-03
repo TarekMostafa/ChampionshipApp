@@ -64,6 +64,22 @@
         }
       }
     })
+    .when("/groups/:tournamentId", {
+      templateUrl: "/client/groups/groups-page.html",
+      controller: "groupsController as groupsCtrl",
+      caseInsensitiveMatch: true,
+      resolve: {
+        tournament: function($route, tournamentHttpService){
+          return tournamentHttpService.getTournament($route.current.params.tournamentId)
+          .then(function(response){
+            return response.data;
+          })
+          .catch(function(err){
+            return null;
+          });
+        }
+      }
+    })
     .otherwise({
       redirectTo: "/home"
     })

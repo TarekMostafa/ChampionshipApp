@@ -4,6 +4,7 @@ var championshipCtrl = require('./server/championship/championship-controller');
 var tournamentCtrl = require('./server/tournament/tournament-controller');
 var tournamentTeamsCtrl = require('./server/tournament-teams/tournament-teams-controller');
 var stagesCtrl = require('./server/stages/stages-controller');
+var groupsCtrl = require('./server/groups/groups-controller');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -23,6 +24,8 @@ app.use('/tournament', tournamentCtrl);
 app.use('/tournament-teams', tournamentTeamsCtrl);
 // Stages Router
 app.use('/stages', stagesCtrl);
+// Groups Router
+app.use('/groups', groupsCtrl);
 // Home Page Route
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
