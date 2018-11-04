@@ -2,31 +2,41 @@
   var myApp = angular.module("championshipApp");
   myApp.service("tournamentHttpService", function($http){
 
-    this.getTournamentViewModel = function () {
-      return {
-        championshipId: "",
-        tournament: {}
-      }
+    this.getTournamentModel = function () {
+      this.name = "";
+      this.no_of_teams = 0;
+      this.year = 0;
+      this.current_stage = null;
     }
 
-    this.addTournament = function (inTournamentObj){
+    this.addTournamentModel = function () {
+      this.championshipId = "";
+      this.tournament = {};
+    }
+
+    this.editTournamentModel = function () {
+      this.championshipId = "";
+      this.tournament = {};
+    }
+
+    this.addTournament = function (addTournamentModel){
       return $http({
         url: '/tournament',
         method: 'PUT',
         dataType: 'json',
         data: {
-          tournamentObj: inTournamentObj
+          addTournamentModel: addTournamentModel
         }
       });
     }
 
-    this.editTournament = function (inTournamentObj){
+    this.editTournament = function (editTournamentModel){
       return $http({
         url: '/tournament',
         method: 'POST',
         dataType: 'json',
         data: {
-          tournamentObj: inTournamentObj
+          editTournamentModel: editTournamentModel
         }
       });
     }

@@ -1,10 +1,10 @@
 var championshipModel = require('./championship-model');
 var mongooseConnection = require('../global-modules/mongoose-connection');
 
-var addChampionship = function (inChampionship, callBack) {
+var addChampionship = function (addChampionshipModel, callBack) {
   mongooseConnection.open()
   .then(function() {
-    var championship = new championshipModel ({name:inChampionship.name});
+    var championship = new championshipModel (addChampionshipModel);
     return championship.save();
   })
   .then(function() {
@@ -18,11 +18,11 @@ var addChampionship = function (inChampionship, callBack) {
   });
 }
 
-var editChampionship = function (inChampionship, callBack) {
+var editChampionship = function (championship, callBack) {
   mongooseConnection.open()
   .then(function(){
-    return championshipModel.findOneAndUpdate({_id: inChampionship._id},
-      {$set:{name:inChampionship.name}});
+    return championshipModel.findOneAndUpdate({_id: championship._id},
+      {$set:{name:championship.name}});
   })
   .then(function(){
     mongooseConnection.close();

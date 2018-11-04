@@ -1,7 +1,7 @@
 var teamsModel = require('./teams-model').teamModel;
 var mongooseConnection = require('../global-modules/mongoose-connection');
 
-var getTeams = function(teamName, continent, limit, skip, callBack){
+var getTeams = function(teamsSearchModel, callBack){
   mongooseConnection.open()
   .then(function(){
     // Set Teams Query
@@ -9,17 +9,19 @@ var getTeams = function(teamName, continent, limit, skip, callBack){
       is_active: true
     };
     // Check teamName passed parameter
-    if(teamName != undefined && teamName != null && teamName.length != 0){
-      query.name = { $regex: ".*" + teamName + ".*", $options: 'i' };
+    if(teamsSearchModel.name != undefined && teamsSearchModel.name != null
+      && teamsSearchModel.name.length != 0){
+      query.name = { $regex: ".*" + teamsSearchModel.name + ".*", $options: 'i' };
     }
     // Check continent passed parameter
-    if(continent != undefined && continent != null && continent.length != 0){
-      query.continent = continent;
+    if(teamsSearchModel.continent != undefined && teamsSearchModel.continent != null
+      && teamsSearchModel.continent.length != 0){
+      query.continent = teamsSearchModel.continent;
     }
     // Find Teams
     return teamsModel.find(query)
-              .limit(parseInt(limit,10))
-              .skip(parseInt(skip,10));
+              .limit(parseInt(teamsSearchModel.limit,10))
+              .skip(parseInt(teamsSearchModel.skip,10));
   })
   .then(function(teams){
     mongooseConnection.close();

@@ -5,7 +5,7 @@
     championshipHttpService){
 
     var _this = this;
-    this.championship = championshipHttpService.getChampionshipViewModel();
+    this.championship = new championshipHttpService.addChampionshipModel();
     this.title = "Add";
     this.disableSaveButton = false;
 

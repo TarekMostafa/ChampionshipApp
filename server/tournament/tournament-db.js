@@ -2,11 +2,11 @@ var championshipModel = require('../championship/championship-model');
 var mongooseConnection = require('../global-modules/mongoose-connection');
 var mongoose = require('mongoose');
 
-var addTournament = function (tournamentObj, callBack){
+var addTournament = function (addTournamentModel, callBack){
   mongooseConnection.open()
   .then(function(){
-    return championshipModel.findOneAndUpdate({_id: tournamentObj.championshipId},
-      {$push: {tournaments: tournamentObj.tournament}});
+    return championshipModel.findOneAndUpdate({_id: addTournamentModel.championshipId},
+      {$push: {tournaments: addTournamentModel.tournament}});
   })
   .then(function(){
     mongooseConnection.close();
@@ -19,18 +19,18 @@ var addTournament = function (tournamentObj, callBack){
   });
 }
 
-var editTournament = function (tournamentObj, callBack){
+var editTournament = function (editTournamentModel, callBack){
   mongooseConnection.open()
   .then(function(){
     var updateObj = {
-      "tournaments.$[elem].name": tournamentObj.tournament.name,
-      "tournaments.$[elem].no_of_teams": tournamentObj.tournament.no_of_teams,
-      "tournaments.$[elem].year": tournamentObj.tournament.year
+      "tournaments.$[elem].name": editTournamentModel.tournament.name,
+      "tournaments.$[elem].no_of_teams": editTournamentModel.tournament.no_of_teams,
+      "tournaments.$[elem].year": editTournamentModel.tournament.year
     };
 
-    var arrayFilters = [ { "elem._id": mongoose.Types.ObjectId(tournamentObj.tournament._id) } ];
+    var arrayFilters = [ { "elem._id": mongoose.Types.ObjectId(editTournamentModel.tournament._id) } ];
 
-    return championshipModel.findOneAndUpdate({_id: tournamentObj.championshipId},
+    return championshipModel.findOneAndUpdate({_id: editTournamentModel.championshipId},
       {$set: updateObj}, {arrayFilters : arrayFilters, returnNewDocument: true});
   })
   .then(function(){

@@ -4,7 +4,7 @@ var stagesDB = require('./stages-db');
 var router = express.Router();
 
 router.post('/', function(req, res){
-  stagesDB.saveStages(req.body.stagesObj, function(err){
+  stagesDB.saveStages(req.body.saveStagesModel, function(err){
     if(err) {
       res.status(500).send(err);
     } else {

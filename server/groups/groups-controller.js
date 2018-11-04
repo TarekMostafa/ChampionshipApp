@@ -4,7 +4,7 @@ var groupsDB = require('./groups-db');
 var router = express.Router();
 
 router.post('/', function(req, res){
-  groupsDB.saveGroups(req.body.groupsObj, function(err){
+  groupsDB.saveGroups(req.body.saveGroupsModel, function(err){
     if(err) {
       res.status(500).send(err);
     } else {

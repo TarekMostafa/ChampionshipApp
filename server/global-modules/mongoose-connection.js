@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var uri = 'mongodb://localhost:27017/Championshipdb';
 var options = {useNewUrlParser: true, useFindAndModify: false};
 
-var open = function(callBack){
+var open = function(){
   return mongoose.connect(uri, options);
 }
 

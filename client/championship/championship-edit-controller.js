@@ -7,7 +7,6 @@
     var _this = this;
     this.championship = selectedChampionship;
     this.title = "Edit";
-    this.selectedChampionship = selectedChampionship;
     this.disableSaveButton = false;
 
     this.cancel = function() {

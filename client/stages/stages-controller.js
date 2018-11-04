@@ -5,13 +5,15 @@
     stagesHttpService, $mdToast){
 
     var _this = this;
+    this.tournament = tournament;
+    this.stages = tournament.stages;
 
     this.saveStages = function () {
-      var stageViewModel = stagesHttpService.getStagesViewModel();
-      stageViewModel.tournamentId = _this.tournament._id;
-      stageViewModel.stages = _this.stages;
+      var saveStagesModel = new stagesHttpService.saveStagesModel();
+      saveStagesModel.tournamentId = _this.tournament._id;
+      saveStagesModel.stages = _this.stages;
       // Call Http post request
-      stagesHttpService.saveStages(stageViewModel)
+      stagesHttpService.saveStages(saveStagesModel)
       .then(function(response){
         $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
       })
@@ -41,9 +43,6 @@
     this.removeStage = function () {
       _this.stages.pop();
     }
-
-    this.tournament = tournament;
-    this.stages = tournament.stages;
 
   });
 })();

@@ -8,13 +8,13 @@
     this.flagsServerPath = championshipParamService.flagsServerPath;
     this.tournament = tournament;
     this.availableTeams = tournament.tournament_teams;
-    this.currentStage = tournament.stages[tournament.current_stage];
-    this.groups = this.currentStage.groups;
+    this.currentStage = null;
+    this.groups = null;
     this.selectedGroupNumber = undefined;
 
-    (function () {
-      if(_this.groups.length == 0) {
-        // Set Groups
+    function setGroups() {
+      if(_this.groups.length === 0) {
+        // New Groups
         for(let counter=0; counter < _this.currentStage.no_of_groups; counter++){
           _this.groups[counter] = {
             number: (counter+1),
@@ -22,7 +22,8 @@
           }
         }
       } else {
-        // Remove Teams from availableTeams if it exist in a group
+        // Old Groups saved before
+        // Remove Teams from availableTeams if it exists in a group
         _this.groups.forEach(function(group){
           group.group_teams.forEach(function(groupTeams){
             if(groupTeams.length === 0) return;
@@ -32,12 +33,19 @@
           })
         })
       }
+    }
+
+    (function () {
+      if(tournament.current_stage !== null && tournament.stages.length !== 0) {
+        _this.currentStage = tournament.stages[tournament.current_stage];
+        _this.groups = _this.currentStage.groups;
+        setGroups();
+      }
       // Set new property selected to availableTeams
       _this.availableTeams.forEach(function(item){
         item.selected = false;
       })
     })();
-
 
     this.moveToGroup = function () {
       // Validate Selected Group Number
@@ -47,17 +55,10 @@
       // Loop through Available Teams and pick only the selected teams
       _this.availableTeams.forEach(function(item, index){
         if(item.selected) {
+          var groupTeamModel = new groupsHttpService.getGroupTeamModel();
+          groupTeamModel.team = item.team;
           var group = _this.groups[_this.selectedGroupNumber-1];
-          group.group_teams.push({
-            team: item.team,
-            match_played: 0,
-            win: 0,
-            draw: 0,
-            lose: 0,
-            goal_for: 0,
-            goal_against: 0,
-            points: 0
-          });
+          group.group_teams.push(groupTeamModel);
         }
       })
       // Loop through Available Teams and remove the selected teams
@@ -75,12 +76,12 @@
     }
 
     this.saveGroups = function () {
-      var groupViewModel = groupsHttpService.getGroupsViewModel();
-      groupViewModel.groups = _this.groups;
-      groupViewModel.tournamentId = _this.tournament._id;
-      groupViewModel.stageId = _this.currentStage._id;
+      var saveGroupsModel = new groupsHttpService.saveGroupsModel();
+      saveGroupsModel.groups = _this.groups;
+      saveGroupsModel.tournamentId = _this.tournament._id;
+      saveGroupsModel.stageId = _this.currentStage._id;
       // Call Http post request
-      groupsHttpService.saveGroups(groupViewModel)
+      groupsHttpService.saveGroups(saveGroupsModel)
       .then(function(response){
         $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
       })

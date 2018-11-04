@@ -4,6 +4,11 @@
       tournamentHttpService){
 
     var _this = this;
+    this.championships = championships;
+    this.tournament = new tournamentHttpService.getTournamentModel();
+    this.selectedChampionship = null;
+    this.title = "Add";
+    this.disableSaveButton = false;
 
     this.cancel = function() {
       if(!_this.disableSaveButton)
@@ -12,28 +17,17 @@
 
     this.saveDialog = function() {
       _this.disableSaveButton = true;
-      tournamentViewModel = tournamentHttpService.getTournamentViewModel();
-      tournamentViewModel.championshipId = _this.selectedChampionship._id;
-      tournamentViewModel.tournament = _this.tournament;
+      addTournamentModel = new tournamentHttpService.addTournamentModel();
+      addTournamentModel.championshipId = _this.selectedChampionship._id;
+      addTournamentModel.tournament = _this.tournament;
       // Call Http put request
-      tournamentHttpService.addTournament(tournamentViewModel)
+      tournamentHttpService.addTournament(addTournamentModel)
       .then(function(response){
         $mdDialog.hide(response.data);
       }).catch(function(err){
         $mdDialog.hide(err);
       });
     };
-
-    this.championships = championships;
-    this.tournament = {
-      name: "",
-      no_of_teams: 0,
-      year: 0,
-      current_stage: null
-    }
-    this.selectedChampionship = null;
-    this.title = "Add";
-    this.disableSaveButton = false;
 
   });
 })();

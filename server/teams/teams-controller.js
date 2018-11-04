@@ -4,8 +4,7 @@ var teamDB = require('./teams-db');
 var router = express.Router();
 
 router.get('/', function(req, res){
-  teamDB.getTeams(req.query.teamName, req.query.continent,
-    req.query.limit, req.query.skip, function(err, data){
+  teamDB.getTeams(JSON.parse(req.query.teamsSearchModel), function(err, data){
       if(err) {
         res.status(500).send(err);
       } else {

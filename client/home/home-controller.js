@@ -4,6 +4,8 @@
   myApp.controller("homePageController", function (championshipHttpService){
 
     var _this = this;
+    this.championships = [];
+    this.loading = false;
 
     this.loadChampionships = function () {
       _this.loading = true;
@@ -16,8 +18,6 @@
       });
     };
 
-    this.championships = [];
-    this.loading = false;
     this.loadChampionships();
 
   })

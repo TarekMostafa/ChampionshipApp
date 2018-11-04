@@ -4,22 +4,27 @@
     championshipParamService, tournamentTeamsHttpService, tournament, $mdToast){
 
     var _this = this;
+    this.tournament = tournament;
+    this.tournamentTeams = [];
+    tournament.tournament_teams.forEach(function(item, index, arr){
+      _this.tournamentTeams.push(item.team);
+    });
+    this.selectedTeam = null;
+    this.flagsServerPath = championshipParamService.flagsServerPath;
 
     this.saveTournamentTeams = function () {
-      var sendObj = {
-        tournamentId: _this.tournament._id,
-        tournamentTeams: []
-      }
+      var saveTournamentTeamsModel = new tournamentTeamsHttpService.saveTournamentTeamsModel();
+      saveTournamentTeamsModel.tournamentId = _this.tournament._id;
       _this.tournamentTeams.forEach(function(item, index, arr){
-        sendObj.tournamentTeams.push({team:item});
+        saveTournamentTeamsModel.tournamentTeams.push({team:item});
       });
-      tournamentTeamsHttpService.saveTournamentTeams(sendObj)
-        .then(function(response){
-          $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
-        })
-        .catch(function(err){
-          $mdToast.show($mdToast.simple().textContent(err).hideDelay(3000));
-        })
+      tournamentTeamsHttpService.saveTournamentTeams(saveTournamentTeamsModel)
+      .then(function(response){
+        $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
+      })
+      .catch(function(err){
+        $mdToast.show($mdToast.simple().textContent(err).hideDelay(3000));
+      })
     }
 
     this.queryTeams = function (queryText) {
@@ -51,15 +56,6 @@
       _this.tournamentTeams.push(_this.selectedTeam);
       _this.selectedTeam = null;
     }
-
-
-    this.tournament = tournament;
-    this.tournamentTeams = [];
-    tournament.tournament_teams.forEach(function(item, index, arr){
-      _this.tournamentTeams.push(item.team);
-    });
-    this.selectedTeam = null;
-    this.flagsServerPath = championshipParamService.flagsServerPath;
 
   });
 })();

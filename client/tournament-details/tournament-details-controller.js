@@ -4,7 +4,6 @@
     championshipParamService){
 
     _this = this;
-
     this.tournament = tournament;
     this.tournamentTeams = [];
     tournament.tournament_teams.forEach(function(item, index, arr){
