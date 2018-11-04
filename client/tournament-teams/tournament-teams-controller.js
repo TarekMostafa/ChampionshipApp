@@ -28,7 +28,10 @@
     }
 
     this.queryTeams = function (queryText) {
-      return teamHttpService.getTeams(queryText, "", 50, 0)
+      // Construct Teams Search Model
+      var teamsSearchModel = new teamHttpService.getTeamsSearchModel();
+      teamsSearchModel.name = queryText;
+      return teamHttpService.getTeams(teamsSearchModel)
       .then(function(response){
         return response.data;
       })
