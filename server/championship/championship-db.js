@@ -1,5 +1,6 @@
 var championshipModel = require('./championship-model');
 var mongooseConnection = require('../global-modules/mongoose-connection');
+var logger = require('../global-modules/winston-logger');
 
 var addChampionship = function (addChampionshipModel, callBack) {
   mongooseConnection.open()
@@ -12,7 +13,7 @@ var addChampionship = function (addChampionshipModel, callBack) {
     callBack(null);
   })
   .catch(function(error) {
-    console.log("mongoose [addChampionship] : " + error);
+    logger.error("mongoose [addChampionship] : " + error);
     mongooseConnection.close();
     callBack(error);
   });
@@ -29,7 +30,7 @@ var editChampionship = function (championship, callBack) {
     callBack(null);
   })
   .catch(function(error){
-    console.log("mongoose [editChampionship] : " + error);
+    logger.error("mongoose [editChampionship] : " + error);
     mongooseConnection.close();
     callBack(error);
   });
@@ -45,7 +46,7 @@ var getChampionships = function (callBack) {
     callBack(null, championships);
   })
   .catch(function(error){
-    console.log("mongoose [getChampionships] : " + error);
+    logger.error("mongoose [getChampionships] : " + error);
     mongooseConnection.close();
     callBack(error);
   });

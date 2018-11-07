@@ -1,6 +1,7 @@
 var championshipModel = require('../championship/championship-model');
 var mongooseConnection = require('../global-modules/mongoose-connection');
 var mongoose = require('mongoose');
+var logger = require('../global-modules/winston-logger');
 
 var saveTournamentTeams = function (saveTournamentTeamsModel, callBack) {
   mongooseConnection.open()
@@ -19,7 +20,7 @@ var saveTournamentTeams = function (saveTournamentTeamsModel, callBack) {
     callBack(null);
   })
   .catch(function(error) {
-    console.log("mongoose [saveTournamentTeams] : " + error);
+    logger.error("mongoose [saveTournamentTeams] : " + error);
     mongooseConnection.close();
     callBack(error);
   });

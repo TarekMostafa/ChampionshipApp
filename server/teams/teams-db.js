@@ -1,5 +1,6 @@
 var teamsModel = require('./teams-model').teamModel;
 var mongooseConnection = require('../global-modules/mongoose-connection');
+var logger = require('../global-modules/winston-logger');
 
 var getTeams = function(teamsSearchModel, callBack){
   mongooseConnection.open()
@@ -28,7 +29,7 @@ var getTeams = function(teamsSearchModel, callBack){
     callBack(null, teams);
   })
   .catch(function(error) {
-    console.log("mongoose [getTeams] : " + error);
+    logger.error("mongoose [getTeams] : " + error);
     mongooseConnection.close();
     callBack(error);
   });
@@ -49,7 +50,7 @@ var getTeamsContinents = function(callBack){
     callBack(null, continents);
   })
   .catch(function(error) {
-    console.log("mongoose [getTeamsContinents] : " + error);
+    logger.error("mongoose [getTeamsContinents] : " + error);
     mongooseConnection.close();
     callBack(error);
   });

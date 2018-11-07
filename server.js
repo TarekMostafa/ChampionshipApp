@@ -6,6 +6,7 @@ var tournamentTeamsCtrl = require('./server/tournament-teams/tournament-teams-co
 var stagesCtrl = require('./server/stages/stages-controller');
 var groupsCtrl = require('./server/groups/groups-controller');
 var bodyParser = require('body-parser');
+var logger = require('./server/global-modules/winston-logger');
 
 var app = express();
 
@@ -32,5 +33,5 @@ app.get('/', function(req, res){
 })
 
 app.listen(3000, function(){
-  console.log("Championship Server listening now on port 3000");
+  logger.info("Championship Server listening now on port 3000");
 });
