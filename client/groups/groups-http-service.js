@@ -15,6 +15,7 @@
 
     this.saveGroupsModel = function () {
       this.groups = [];
+      this.championshipId = "";
       this.tournamentId = "";
       this.stageId = "";
     }

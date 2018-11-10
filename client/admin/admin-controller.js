@@ -11,7 +11,10 @@
 
     this.showGridBottomSheet = function () {
       $mdBottomSheet.show({
-        locals: {tournament: _this.selectedTournament},
+        locals: {
+          championship: _this.selectedChampionship,
+          tournament: _this.selectedTournament
+        },
         templateUrl: '/client/admin/admin-buttom-sheet-template.html',
         controller: 'adminButtomSheetController as adminButtomSheetCtrl'
       }).then(function(clickedItem) {

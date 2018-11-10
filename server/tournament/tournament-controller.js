@@ -1,10 +1,10 @@
 var express = require('express');
-var tournamentDB = require('./tournament-db');
+var tournamentDb = require('./tournament-db');
 
 var router = express.Router();
 
 router.put('/', function(req, res){
-  tournamentDB.addTournament(req.body.addTournamentModel, function(err){
+  tournamentDb.addTournament(req.body.addTournamentModel, function(err){
     if(err) {
       res.status(500).send(err);
     } else {
@@ -14,7 +14,7 @@ router.put('/', function(req, res){
 });
 
 router.post('/', function(req, res){
-  tournamentDB.editTournament(req.body.editTournamentModel, function(err){
+  tournamentDb.editTournament(req.body.editTournamentModel, function(err){
     if(err) {
       res.status(500).send(err);
     } else {
@@ -23,13 +23,13 @@ router.post('/', function(req, res){
   });
 });
 
-router.get('/:tournamentId', function(req, res){
-  tournamentDB.getTournament(req.params.tournamentId,
-    req.query.tournamentSearchModel, function(err, tournament){
+router.get('/', function(req, res){
+  tournamentDb.getTournament(req.query.tournamentSearchModel,
+    function(err, championship){
     if(err) {
       res.status(500).send(err);
     } else {
-      res.json(tournament);
+      res.json(championship);
     }
   });
 });

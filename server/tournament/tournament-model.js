@@ -1,14 +1,16 @@
 var mongoose = require('mongoose');
-var tournamentTeams = require('../tournament-teams/tournament-teams-model');
-var stages = require('../stages/stages-model');
+var tournamentTeam = require('../tournament-teams/tournament-teams-model').tournamentTeamsSchema;
+var stage = require('../stages/stages-model').stageSchema;
 
-var TournamentSchema = mongoose.Schema({
+var tournamentSchema = mongoose.Schema({
   name: String,
   no_of_teams: Number,
   year: Number,
-  current_stage: stages,
-  tournament_teams: [tournamentTeams],
-  stages: [stages]
+  current_stage: stage,
+  tournament_teams: [tournamentTeam],
+  stages: [stage]
 });
 
-module.exports = TournamentSchema;
+module.exports = {
+  tournamentSchema
+};

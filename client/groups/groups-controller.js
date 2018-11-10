@@ -1,14 +1,14 @@
 (function () {
   'use strict';
   var myApp = angular.module("championshipApp");
-  myApp.controller("groupsController", function(tournament,
+  myApp.controller("groupsController", function(championship,
     championshipParamService, groupsHttpService, $mdToast){
 
     var _this = this;
     this.flagsServerPath = championshipParamService.flagsServerPath;
-    this.tournament = tournament;
-    this.availableTeams = tournament.tournament_teams;
-    this.groups = tournament.current_stage.groups;
+    this.tournament = championship.tournaments[0];
+    this.availableTeams = this.tournament.tournament_teams;
+    this.groups = this.tournament.current_stage.groups;
     this.selectedGroupNumber = undefined;
 
     function setGroups() {
@@ -35,7 +35,7 @@
     }
 
     (function () {
-      if(tournament.current_stage !== null) {
+      if(_this.tournament.current_stage !== null) {
         setGroups();
       }
       // Set new property selected to availableTeams
@@ -75,6 +75,7 @@
     this.saveGroups = function () {
       var saveGroupsModel = new groupsHttpService.saveGroupsModel();
       saveGroupsModel.groups = _this.groups;
+      saveGroupsModel.championshipId = championship._id;
       saveGroupsModel.tournamentId = _this.tournament._id;
       saveGroupsModel.stageId = _this.tournament.current_stage._id;
       // Call Http post request

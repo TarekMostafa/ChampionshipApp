@@ -3,6 +3,7 @@
   myApp.service("tournamentTeamsHttpService", function($http){
 
     this.saveTournamentTeamsModel = function () {
+      this.championshipId = "";
       this.tournamentId = "";
       this.tournamentTeams = [];
     }

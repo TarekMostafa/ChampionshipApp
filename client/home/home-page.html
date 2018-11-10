@@ -18,7 +18,8 @@
       <md-card-content ng-hide="!showTournament">
         <md-list flex>
           <div ng-repeat="tournament in championship.tournaments">
-            <md-list-item class="md-3-line" ng-href="#!tournament-details/{{tournament._id}}">
+            <md-list-item class="md-3-line"
+            ng-href="#!tournament-details?championshipId={{championship._id}}&tournamentId={{tournament._id}}">
               <div class="md-list-item-text" layout="column" layout-align="center center">
                 <h3>{{tournament.name}}</h3>
               </div>

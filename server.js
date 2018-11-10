@@ -8,12 +8,16 @@ var tournamentCtrl = require('./server/tournament/tournament-controller');
 var tournamentTeamsCtrl = require('./server/tournament-teams/tournament-teams-controller');
 var stagesCtrl = require('./server/stages/stages-controller');
 var groupsCtrl = require('./server/groups/groups-controller');
+var matchesCtrl = require('./server/matches/matches-controller');
 var logger = require('./server/global-modules/winston-logger');
 
 // Use Express.JS Framework to manage Http requests and responses
 var app = express();
 // parse application/json
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 // Static Files
 app.use('/client', express.static('client'));
 app.use('/node_modules', express.static('node_modules'));
@@ -29,6 +33,8 @@ app.use('/tournament-teams', tournamentTeamsCtrl);
 app.use('/stages', stagesCtrl);
 // Groups Router
 app.use('/groups', groupsCtrl);
+// Matches Router
+app.use('/matches', matchesCtrl);
 // Home Page Route
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');

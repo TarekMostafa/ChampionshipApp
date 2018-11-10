@@ -13,6 +13,7 @@
     }
 
     this.saveStagesModel = function () {
+      this.championshipId = "";
       this.tournamentId = "";
       this.stages = [];
     }

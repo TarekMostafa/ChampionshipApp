@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var team = require('../teams/teams-model').teamSchema;
+var match = require('../matches/matches-model').matchSchema;
 
-var GroupSchema = mongoose.Schema({
+var groupSchema = mongoose.Schema({
   number: Number,
   group_teams: [{
     team: team,
@@ -12,7 +13,10 @@ var GroupSchema = mongoose.Schema({
     goal_for: Number,
     goal_against: Number,
     points: Number
-  }]
+  }],
+  group_matches: [match]
 });
 
-module.exports = GroupSchema;
+module.exports = {
+  groupSchema
+};

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-var group = require('../groups/groups-model');
+var group = require('../groups/groups-model').groupSchema;
 
-var StageSchema = mongoose.Schema({
+var stageSchema = mongoose.Schema({
   _id: Number,
   name: String,
   type: String,
@@ -12,4 +12,6 @@ var StageSchema = mongoose.Schema({
   groups: [group]
 });
 
-module.exports = StageSchema;
+module.exports = {
+  stageSchema
+};

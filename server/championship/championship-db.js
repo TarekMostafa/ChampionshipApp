@@ -1,8 +1,12 @@
-var championshipModel = require('./championship-model');
+var mongoose = require('mongoose');
 var logger = require('../global-modules/winston-logger');
+var championshipModel = require('./championship-model').championshipModel;
 
-var addChampionship = function (addChampionshipModel, callBack) {
-  var championship = new championshipModel (addChampionshipModel);
+// Insert new Championship to MongoDB
+// Just adding the basic property of the championship
+var addChampionship = function (inChampionship, callBack) {
+  var championship = new championshipModel ();
+  championship.name = inChampionship.name;
   championship.save()
   .then(function(){
     callBack(null);
@@ -13,10 +17,12 @@ var addChampionship = function (addChampionshipModel, callBack) {
   });
 }
 
-var editChampionship = function (championship, callBack) {
+// Update Championship in MongoDB
+// Just updating the basic property of the championship
+var editChampionship = function (inChampionship, callBack) {
   championshipModel.findOneAndUpdate(
-    {_id: championship._id},
-    {$set:{name:championship.name}}
+    {_id: inChampionship._id},
+    {$set:{name:inChampionship.name}}
   )
   .then(function(){
     callBack(null);
@@ -27,6 +33,8 @@ var editChampionship = function (championship, callBack) {
   });
 }
 
+// Retrieve all Championships that exists in MongoDB
+// without tournament teams and tournament stages
 var getChampionships = function (callBack) {
   championshipModel.find(
     {},

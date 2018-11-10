@@ -1,0 +1,17 @@
+<div layout="row" ng-cloak>
+  <md-content layout="row" layout-align="space-around center">
+    <md-card>
+      <img ng-src="{{flagsserverpath}}{{team1.flag_location}}" alt=""/>
+      <md-card-content layout="row" layout-align="center center">
+        {{team1.name}}
+      </md-card-content>
+    </md-card>
+    Vs
+    <md-card>
+      <img ng-src="{{flagsserverpath}}{{team2.flag_location}}" alt=""/>
+      <md-card-content layout="row" layout-align="center center">
+        {{team2.name}}
+      </md-card-content>
+    </md-card>
+  </md-content>
+</div>

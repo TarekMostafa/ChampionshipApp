@@ -1,6 +1,6 @@
-var championshipModel = require('../championship/championship-model');
 var mongoose = require('mongoose');
 var logger = require('../global-modules/winston-logger');
+var championshipModel = require('../championship/championship-model').championshipModel;
 
 var addTournament = function (addTournamentModel, callBack){
   championshipModel.findOneAndUpdate(
@@ -39,7 +39,7 @@ var editTournament = function (editTournamentModel, callBack){
   });
 }
 
-var getTournament = function (tournamentId, tournamentSearchModel, callBack){
+var getTournament = function (tournamentSearchModel, callBack){
   // Check tournamentSearchModel Parameter
   if(typeof tournamentSearchModel === "string") {
     tournamentSearchModel = JSON.parse(tournamentSearchModel);
@@ -69,11 +69,14 @@ var getTournament = function (tournamentId, tournamentSearchModel, callBack){
   }
 
   championshipModel.findOne(
-    {"tournaments._id": mongoose.Types.ObjectId(tournamentId)},
+    {
+      "_id": mongoose.Types.ObjectId(tournamentSearchModel.championshipId),
+      "tournaments._id": mongoose.Types.ObjectId(tournamentSearchModel.tournamentId)
+    },
     projection
   )
   .then(function(championship){
-    callBack(null, championship.tournaments.id(tournamentId));
+    callBack(null, championship);
   })
   .catch(function(error) {
     logger.error("mongoose [getTournament] : " + error);

@@ -1,15 +1,16 @@
 (function () {
   'use strict';
   var myApp = angular.module("championshipApp");
-  myApp.controller("stagesController", function(tournament, $mdDialog,
+  myApp.controller("stagesController", function(championship, $mdDialog,
     stagesHttpService, $mdToast){
 
     var _this = this;
-    this.tournament = tournament;
-    this.stages = tournament.stages;
+    this.tournament = championship.tournaments[0];
+    this.stages = this.tournament.stages;
 
     this.saveStages = function () {
       var saveStagesModel = new stagesHttpService.saveStagesModel();
+      saveStagesModel.championshipId = championship._id;
       saveStagesModel.tournamentId = _this.tournament._id;
       saveStagesModel.stages = _this.stages;
       // Call Http post request
@@ -24,7 +25,7 @@
 
     this.addStage = function (ev) {
       $mdDialog.show({
-        locals: {no_of_teams: (_this.stages.length <=0? tournament.no_of_teams:
+        locals: {no_of_teams: (_this.stages.length <=0? _this.tournament.no_of_teams:
            _this.stages[_this.stages.length-1].no_out_teams)},
         controller: "stageAddController as stageAddCtrl",
         templateUrl: '/client/stages/stage-add-dialog.html',

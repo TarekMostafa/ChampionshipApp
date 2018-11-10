@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var TeamsSchema = mongoose.Schema({
+var teamsSchema = mongoose.Schema({
   _id: Number,
   name: String,
   continent: String,
@@ -11,6 +11,6 @@ var TeamsSchema = mongoose.Schema({
 });
 
 module.exports = {
-  teamModel: mongoose.model("teams", TeamsSchema),
-  teamSchema: TeamsSchema
+  teamModel: mongoose.model("teams", teamsSchema),
+  teamSchema: teamsSchema
 }

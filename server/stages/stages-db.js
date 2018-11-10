@@ -1,6 +1,6 @@
-var championshipModel = require('../championship/championship-model');
 var mongoose = require('mongoose');
 var logger = require('../global-modules/winston-logger');
+var championshipModel = require('../championship/championship-model').championshipModel;
 
 var saveStages = function (saveStagesModel, callBack) {
   // Set Current Stage
@@ -17,7 +17,7 @@ var saveStages = function (saveStagesModel, callBack) {
   var arrayFilters = [ { "elem._id": mongoose.Types.ObjectId(saveStagesModel.tournamentId) } ];
 
   championshipModel.findOneAndUpdate(
-    {},
+    {_id: saveStagesModel.championshipId},
     {$set: updateObj},
     {arrayFilters : arrayFilters, returnNewDocument: true, upsert:true}
   )

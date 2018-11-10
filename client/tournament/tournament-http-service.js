@@ -2,6 +2,14 @@
   var myApp = angular.module("championshipApp");
   myApp.service("tournamentHttpService", function($http){
 
+    this.tournamentSearchModel = function () {
+      this.championshipId = "";
+      this.tournamentId = "";
+      this.loadTournamentTeams = false;
+      this.loadStages = false;
+      this.loadGroups = false;
+    }
+
     this.getTournamentModel = function () {
       this.name = "";
       this.no_of_teams = 0;
@@ -41,9 +49,9 @@
       });
     }
 
-    this.getTournament = function (inTournamentId, tournamentSearchModel){
+    this.getTournament = function (tournamentSearchModel) {
       return $http({
-        url: '/tournament/'+inTournamentId,
+        url: '/tournament',
         method: 'GET',
         params: {tournamentSearchModel}
       });

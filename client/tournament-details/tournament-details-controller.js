@@ -1,12 +1,12 @@
 (function () {
   myApp = angular.module("championshipApp");
-  myApp.controller("tournamentDetailsController", function(tournament,
+  myApp.controller("tournamentDetailsController", function(championship,
     championshipParamService){
 
     _this = this;
-    this.tournament = tournament;
+    this.tournament = championship.tournaments[0];
     this.tournamentTeams = [];
-    tournament.tournament_teams.forEach(function(item, index, arr){
+    this.tournament.tournament_teams.forEach(function(item, index, arr){
       _this.tournamentTeams.push(item.team);
     });
     this.groups = [];

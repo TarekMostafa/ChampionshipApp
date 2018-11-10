@@ -16,16 +16,19 @@
       controller: "adminPageController as adminPageCtrl",
       caseInsensitiveMatch: true
     })
-    .when("/tournament-details/:tournamentId", {
+    .when("/tournament-details", {
       templateUrl: "/client/tournament-details/tournament-details-page.html",
       controller: "tournamentDetailsController as tournamentDetailsCtrl",
       caseInsensitiveMatch: true,
       resolve: {
-        tournament: function($route, tournamentHttpService) {
-          return tournamentHttpService.getTournament(
-            $route.current.params.tournamentId,
-            {loadTournamentTeams:true, loadStages:true, loadGroups:true}
-          )
+        championship: function($route, tournamentHttpService) {
+          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
+          tournamentSearchModel.championshipId = $route.current.params.championshipId;
+          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
+          tournamentSearchModel.loadTournamentTeams = true;
+          tournamentSearchModel.loadStages = true;
+          tournamentSearchModel.loadGroups = true;
+          return tournamentHttpService.getTournament(tournamentSearchModel)
           .then(function(response){
             return response.data;
           })
@@ -35,16 +38,17 @@
         }
       }
     })
-    .when("/tournament-teams/:tournamentId", {
+    .when("/tournament-teams", {
       templateUrl: "/client/tournament-teams/tournament-teams-page.html",
       controller: "tournamentTeamsController as tournamentTeamsCtrl",
       caseInsensitiveMatch: true,
       resolve: {
-        tournament: function($route, tournamentHttpService){
-          return tournamentHttpService.getTournament(
-            $route.current.params.tournamentId,
-            {loadTournamentTeams:true}
-          )
+        championship: function($route, tournamentHttpService){
+          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
+          tournamentSearchModel.championshipId = $route.current.params.championshipId;
+          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
+          tournamentSearchModel.loadTournamentTeams = true;
+          return tournamentHttpService.getTournament(tournamentSearchModel)
           .then(function(response){
             return response.data;
           })
@@ -54,16 +58,18 @@
         }
       }
     })
-    .when("/stages/:tournamentId", {
+    .when("/stages", {
       templateUrl: "/client/stages/stages-page.html",
       controller: "stagesController as stagesCtrl",
       caseInsensitiveMatch: true,
       resolve: {
-        tournament: function($route, tournamentHttpService){
-          return tournamentHttpService.getTournament(
-            $route.current.params.tournamentId,
-            {loadStages:true, loadGroups: true}
-          )
+        championship: function($route, tournamentHttpService){
+          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
+          tournamentSearchModel.championshipId = $route.current.params.championshipId;
+          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
+          tournamentSearchModel.loadStages = true;
+          tournamentSearchModel.loadGroups = true;
+          return tournamentHttpService.getTournament(tournamentSearchModel)
           .then(function(response){
             return response.data;
           })
@@ -73,16 +79,17 @@
         }
       }
     })
-    .when("/groups/:tournamentId", {
+    .when("/groups", {
       templateUrl: "/client/groups/groups-page.html",
       controller: "groupsController as groupsCtrl",
       caseInsensitiveMatch: true,
       resolve: {
-        tournament: function($route, tournamentHttpService){
-          return tournamentHttpService.getTournament(
-            $route.current.params.tournamentId,
-            {loadTournamentTeams:true}
-          )
+        championship: function($route, tournamentHttpService){
+          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
+          tournamentSearchModel.championshipId = $route.current.params.championshipId;
+          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
+          tournamentSearchModel.loadTournamentTeams = true;
+          return tournamentHttpService.getTournament(tournamentSearchModel)
           .then(function(response){
             return response.data;
           })
@@ -92,16 +99,19 @@
         }
       }
     })
-    .when("/matches/:tournamentId", {
+    .when("/matches", {
       templateUrl: "/client/matches/matches-page.html",
       controller: "matchesController as matchesCtrl",
       caseInsensitiveMatch: true,
       resolve: {
-        tournament: function($route, tournamentHttpService){
-          return tournamentHttpService.getTournament(
-            $route.current.params.tournamentId,
-            {loadTournamentTeams:true, loadStages:true, loadGroups:true}
-          )
+        championship: function($route, tournamentHttpService){
+          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
+          tournamentSearchModel.championshipId = $route.current.params.championshipId;
+          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
+          tournamentSearchModel.loadTournamentTeams = true;
+          tournamentSearchModel.loadStages = true;
+          tournamentSearchModel.loadGroups = true;
+          return tournamentHttpService.getTournament(tournamentSearchModel)
           .then(function(response){
             return response.data;
           })

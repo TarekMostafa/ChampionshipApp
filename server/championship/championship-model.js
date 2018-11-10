@@ -1,9 +1,12 @@
 var mongoose = require('mongoose');
-var tournament = require('../tournament/tournament-model');
+var tournament = require('../tournament/tournament-model').tournamentSchema;
 
-var ChampionshipSchema = mongoose.Schema({
+var championshipSchema = mongoose.Schema({
   name: String,
   tournaments: [tournament]
 });
 
-module.exports = mongoose.model("championships", ChampionshipSchema);
+module.exports = {
+  championshipModel: mongoose.model("championships", championshipSchema),
+  championshipSchema
+};

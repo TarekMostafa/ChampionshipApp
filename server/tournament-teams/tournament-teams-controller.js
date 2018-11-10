@@ -1,10 +1,10 @@
 var express = require('express');
-var tournamentTeamsDB = require('./tournament-teams-db');
+var tournamentTeamsDb = require('./tournament-teams-db');
 
 var router = express.Router();
 
 router.post('/', function(req, res){
-  tournamentTeamsDB.saveTournamentTeams(req.body.saveTournamentTeamsModel, function(err){
+  tournamentTeamsDb.saveTournamentTeams(req.body.saveTournamentTeamsModel, function(err){
     if(err) {
       res.status(500).send(err);
     } else {

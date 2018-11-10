@@ -1,43 +1,32 @@
 (function () {
   'use strict';
   var myApp = angular.module("championshipApp");
-  myApp.controller("matchesController", function(tournament,
-    championshipParamService){
+  myApp.controller("matchesController", function(championship,
+    championshipParamService, matchesHttpService){
 
     var _this = this;
     this.flagsServerPath = championshipParamService.flagsServerPath;
-    this.tournament = tournament;
+    this.tournament = championship.tournaments[0];
+    this.currentStage = _this.tournament.current_stage;
     this.matches = [];
     this.disableGenerate = false;
 
-    this.match = function () {
-      this.team1 = {},
-      this.team2 = {}
+    this.extractMatchesfromStage = function () {
+      _this.matches = [];
+      for(let group of _this.currentStage.groups) {
+        _this.matches = _this.matches.concat(group.group_matches);
+      }
     }
 
     this.generateMatches = function () {
       _this.disableGenerate = true;
-      var currentStage = _this.tournament.stages[tournament.current_stage];
-      var groups = currentStage.groups;
-      for(let group of groups){
-        let totalRounds = (group.group_teams.length - 1) * currentStage.no_of_legs;
-        let matchesPerRound = group.group_teams.length / 2;
-        for(let r = 0; r < totalRounds; r++){
-          for(let m = 0; m < matchesPerRound; m++){
-            let home = (r+m) % (group.group_teams.length - 1);
-            let away = 0;
-            if(m === 0){
-              away = (group.group_teams.length - 1);
-            } else {
-              away = (group.group_teams.length - 1 - m + r) % (group.group_teams.length - 1);
-            }
-            let match = new _this.match();
-            match.team1 = group.group_teams[home].team;
-            match.team2 = group.group_teams[away].team;
-            _this.matches.push(match);
-          }
-        }
-      }
+      matchesHttpService.generateMatches(championship._id, _this.tournament._id, _this.currentStage._id)
+      .then(function(response){
+        _this.currentStage = response.data;
+        _this.extractMatchesfromStage();
+      })
+      .catch(function(err){
+      });
     }
 
   });
