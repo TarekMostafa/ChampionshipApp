@@ -1,28 +1,39 @@
 var championshipModel = require('../championship/championship-model');
-var mongooseConnection = require('../global-modules/mongoose-connection');
 var mongoose = require('mongoose');
 var logger = require('../global-modules/winston-logger');
 
 var saveGroups = function (saveGroupsModel, callBack) {
-  mongooseConnection.open()
-  .then(function(){
+  championshipModel.findOne(
+    {"tournaments._id": mongoose.Types.ObjectId(saveGroupsModel.tournamentId)},
+    {"tournaments.tournament_teams":0, "tournaments.stages": 0}
+  )
+  .then(function(championship){
+    return championship.tournaments[0].current_stage;
+  })
+  .then(function(currentStage){
+
     var updateObj = {
       "tournaments.$[elem].stages.$[stage].groups": saveGroupsModel.groups
     };
 
-    var arrayFilters = [ {"elem._id": mongoose.Types.ObjectId(saveGroupsModel.tournamentId)},
-                         {"stage._id": mongoose.Types.ObjectId(saveGroupsModel.stageId)} ];
+    if(currentStage._id === saveGroupsModel.stageId) {
+      updateObj["tournaments.$[elem].current_stage.groups"] = saveGroupsModel.groups;
+    }
 
-    return championshipModel.findOneAndUpdate({},
-      {$set: updateObj}, {arrayFilters : arrayFilters, returnNewDocument: true, upsert:true});
+    var arrayFilters = [ {"elem._id": mongoose.Types.ObjectId(saveGroupsModel.tournamentId)},
+                         {"stage._id": saveGroupsModel.stageId} ];
+
+    return championshipModel.findOneAndUpdate(
+      {},
+      {$set: updateObj},
+      {arrayFilters : arrayFilters, returnNewDocument: true, upsert:true}
+    );
   })
   .then(function(){
-    mongooseConnection.close();
     callBack(null);
   })
   .catch(function(error) {
     logger.error("mongoose [saveGroups] : " + error);
-    mongooseConnection.close();
     callBack(error);
   });
 }

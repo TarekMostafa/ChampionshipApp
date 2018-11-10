@@ -8,14 +8,13 @@
     this.flagsServerPath = championshipParamService.flagsServerPath;
     this.tournament = tournament;
     this.availableTeams = tournament.tournament_teams;
-    this.currentStage = null;
-    this.groups = null;
+    this.groups = tournament.current_stage.groups;
     this.selectedGroupNumber = undefined;
 
     function setGroups() {
       if(_this.groups.length === 0) {
         // New Groups
-        for(let counter=0; counter < _this.currentStage.no_of_groups; counter++){
+        for(let counter=0; counter < _this.tournament.current_stage.no_of_groups; counter++){
           _this.groups[counter] = {
             number: (counter+1),
             group_teams: []
@@ -36,9 +35,7 @@
     }
 
     (function () {
-      if(tournament.current_stage !== null && tournament.stages.length !== 0) {
-        _this.currentStage = tournament.stages[tournament.current_stage];
-        _this.groups = _this.currentStage.groups;
+      if(tournament.current_stage !== null) {
         setGroups();
       }
       // Set new property selected to availableTeams
@@ -79,7 +76,7 @@
       var saveGroupsModel = new groupsHttpService.saveGroupsModel();
       saveGroupsModel.groups = _this.groups;
       saveGroupsModel.tournamentId = _this.tournament._id;
-      saveGroupsModel.stageId = _this.currentStage._id;
+      saveGroupsModel.stageId = _this.tournament.current_stage._id;
       // Call Http post request
       groupsHttpService.saveGroups(saveGroupsModel)
       .then(function(response){

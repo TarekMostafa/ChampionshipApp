@@ -6,7 +6,7 @@ var TournamentSchema = mongoose.Schema({
   name: String,
   no_of_teams: Number,
   year: Number,
-  current_stage: Number,
+  current_stage: stages,
   tournament_teams: [tournamentTeams],
   stages: [stages]
 });

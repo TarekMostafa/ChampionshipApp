@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var group = require('../groups/groups-model');
 
 var StageSchema = mongoose.Schema({
+  _id: Number,
   name: String,
   type: String,
   no_in_teams: Number,

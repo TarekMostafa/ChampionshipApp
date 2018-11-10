@@ -34,6 +34,7 @@
         //fullscreen: _this.customFullscreen // Only for -xs, -sm breakpoints.
       })
       .then(function(stage) {
+        stage._id = _this.stages.length + 1;
         _this.stages.push(stage);
       }, function() {
         //'You cancelled the dialog.'

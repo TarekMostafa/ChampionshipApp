@@ -16,7 +16,7 @@
       if(_this.tournament.stages.length === 0) {
         return;
       }
-      _this.groups = _this.tournament.stages[_this.tournament.current_stage].groups;
+      _this.groups = _this.tournament.current_stage.groups;
     })();
 
   });

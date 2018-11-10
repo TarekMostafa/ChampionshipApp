@@ -41,10 +41,11 @@
       });
     }
 
-    this.getTournament = function (inTournamentId){
+    this.getTournament = function (inTournamentId, tournamentSearchModel){
       return $http({
         url: '/tournament/'+inTournamentId,
-        method: 'GET'
+        method: 'GET',
+        params: {tournamentSearchModel}
       });
     }
 

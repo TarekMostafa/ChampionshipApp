@@ -12,35 +12,39 @@
       </md-button>
     </section>
   </md-toolbar>
+  <div layout="row" layout-align="center center">
+    <span class="md-display-2">Current Stage: {{groupsCtrl.tournament.current_stage._id}}</span>
+  </div>
+  <md-divider></md-divider>
   <div layout-gt-sm="row" layout="column">
     <div flex-gt-sm="30" flex>
-    <md-content>
-      <md-list flex>
-        <md-subheader class="md-no-sticky">Available Tournament Teams = {{groupsCtrl.availableTeams.length}}</md-subheader>
-        <div layout="row" layout-align="center center">
-          <md-input-container>
-            <label>Groups</label>
-            <md-select ng-model="groupsCtrl.selectedGroupNumber">
-              <md-option></md-option>
-              <md-option ng-repeat="group in groupsCtrl.groups" ng-value="group.number">
-                {{group.number}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <md-button class="md-icon-button md-primary" ng-click="groupsCtrl.moveToGroup()" aria-label="move">
-            <md-icon ng-bind="'arrow_forward'"></md-icon>
-          </md-button>
-        </div>
-        <md-list-item class="md-3-line md-long-text" ng-repeat="tour_team in groupsCtrl.availableTeams">
-          <md-checkbox ng-model="tour_team.selected"></md-checkbox>
-          <span>
-            <img ng-src="{{groupsCtrl.flagsServerPath}}{{tour_team.team.flag_location}}" alt=""/>
-            <md-tooltip md-direction="right">{{tour_team.team.name}}</md-tooltip>
-          </span>
-          <md-divider ></md-divider>
-        </md-list-item>
-      </md-list>
-    </md-content>
+      <md-content>
+        <md-list flex>
+          <md-subheader class="md-no-sticky">Available Tournament Teams = {{groupsCtrl.availableTeams.length}}</md-subheader>
+          <div layout="row" layout-align="center center">
+            <md-input-container>
+              <label>Groups</label>
+              <md-select ng-model="groupsCtrl.selectedGroupNumber">
+                <md-option></md-option>
+                <md-option ng-repeat="group in groupsCtrl.groups" ng-value="group.number">
+                  {{group.number}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <md-button class="md-icon-button md-primary" ng-click="groupsCtrl.moveToGroup()" aria-label="move">
+              <md-icon ng-bind="'arrow_forward'"></md-icon>
+            </md-button>
+          </div>
+          <md-list-item class="md-3-line md-long-text" ng-repeat="tour_team in groupsCtrl.availableTeams">
+            <md-checkbox ng-model="tour_team.selected"></md-checkbox>
+            <span>
+              <img ng-src="{{groupsCtrl.flagsServerPath}}{{tour_team.team.flag_location}}" alt=""/>
+              <md-tooltip md-direction="right">{{tour_team.team.name}}</md-tooltip>
+            </span>
+            <md-divider ></md-divider>
+          </md-list-item>
+        </md-list>
+      </md-content>
     </div>
     <md-divider></md-divider>
     <div flex-gt-sm="70" flex>

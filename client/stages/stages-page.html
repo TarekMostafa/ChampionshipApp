@@ -37,8 +37,9 @@
           </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="stage in stagesCtrl.stages">
-          <td>{{$index+1}}</td>
+        <tr ng-repeat="stage in stagesCtrl.stages"
+          ng-class="( stage._id === stagesCtrl.tournament.current_stage._id ? 'table-primary' : '' )">
+          <td>{{stage._id}}</td>
           <td>{{stage.name}}</td>
           <td>{{stage.type}}</td>
           <td>{{stage.no_in_teams}}</td>

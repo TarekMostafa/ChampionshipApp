@@ -22,7 +22,10 @@
       caseInsensitiveMatch: true,
       resolve: {
         tournament: function($route, tournamentHttpService) {
-          return tournamentHttpService.getTournament($route.current.params.tournamentId)
+          return tournamentHttpService.getTournament(
+            $route.current.params.tournamentId,
+            {loadTournamentTeams:true, loadStages:true, loadGroups:true}
+          )
           .then(function(response){
             return response.data;
           })
@@ -38,7 +41,10 @@
       caseInsensitiveMatch: true,
       resolve: {
         tournament: function($route, tournamentHttpService){
-          return tournamentHttpService.getTournament($route.current.params.tournamentId)
+          return tournamentHttpService.getTournament(
+            $route.current.params.tournamentId,
+            {loadTournamentTeams:true}
+          )
           .then(function(response){
             return response.data;
           })
@@ -54,7 +60,10 @@
       caseInsensitiveMatch: true,
       resolve: {
         tournament: function($route, tournamentHttpService){
-          return tournamentHttpService.getTournament($route.current.params.tournamentId)
+          return tournamentHttpService.getTournament(
+            $route.current.params.tournamentId,
+            {loadStages:true, loadGroups: true}
+          )
           .then(function(response){
             return response.data;
           })
@@ -70,7 +79,29 @@
       caseInsensitiveMatch: true,
       resolve: {
         tournament: function($route, tournamentHttpService){
-          return tournamentHttpService.getTournament($route.current.params.tournamentId)
+          return tournamentHttpService.getTournament(
+            $route.current.params.tournamentId,
+            {loadTournamentTeams:true}
+          )
+          .then(function(response){
+            return response.data;
+          })
+          .catch(function(err){
+            return null;
+          });
+        }
+      }
+    })
+    .when("/matches/:tournamentId", {
+      templateUrl: "/client/matches/matches-page.html",
+      controller: "matchesController as matchesCtrl",
+      caseInsensitiveMatch: true,
+      resolve: {
+        tournament: function($route, tournamentHttpService){
+          return tournamentHttpService.getTournament(
+            $route.current.params.tournamentId,
+            {loadTournamentTeams:true, loadStages:true, loadGroups:true}
+          )
           .then(function(response){
             return response.data;
           })

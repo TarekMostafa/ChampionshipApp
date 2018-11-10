@@ -1,0 +1,27 @@
+<div ng-cloak md-padding>
+  <md-toolbar layout="row" layout-align="start center">
+    <section layout-align="start center" layout-fill flex>
+      <h2 class="md-toolbar-tools">
+        {{matchesCtrl.tournament.name}} Matches
+      </h2>
+    </section>
+    <section layout-align="end center">
+      <md-button class="md-fab md-mini" aria-label="Save Groups">
+        <md-icon ng-bind="'save'"></md-icon>
+        <md-tooltip md-direction="bottom">Save Groups</md-tooltip>
+      </md-button>
+    </section>
+  </md-toolbar>
+  <md-content>
+    <md-button class="md-raised md-primary" ng-click="matchesCtrl.generateMatches()"
+      ng-disabled="matchesCtrl.disableGenerate">Generate Matches</md-button>
+    <md-list ng-cloak>
+      <md-list-item ng-repeat = "match in matchesCtrl.matches">
+        <img ng-src="{{matchesCtrl.flagsServerPath}}{{match.team1.flag_location}}" alt="NO" class="md-avatar"/>
+        {{match.team1.name}} Vs {{match.team2.name}}
+        <img ng-src="{{matchesCtrl.flagsServerPath}}{{match.team2.flag_location}}" alt="NI" class="md-avatar"/>
+        <md-divider></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div>

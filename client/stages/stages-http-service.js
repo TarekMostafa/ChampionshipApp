@@ -3,6 +3,7 @@
   myApp.service("stagesHttpService", function($http){
 
     this.getStageModel = function () {
+      this._id = 0;
       this.name = "";
       this.type = "";
       this.no_in_teams = 0;

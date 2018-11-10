@@ -24,7 +24,8 @@ router.post('/', function(req, res){
 });
 
 router.get('/:tournamentId', function(req, res){
-  tournamentDB.getTournament(req.params.tournamentId, function(err, tournament){
+  tournamentDB.getTournament(req.params.tournamentId,
+    req.query.tournamentSearchModel, function(err, tournament){
     if(err) {
       res.status(500).send(err);
     } else {
