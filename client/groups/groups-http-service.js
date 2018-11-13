@@ -13,20 +13,16 @@
       this.points = 0;
     }
 
-    this.saveGroupsModel = function () {
-      this.groups = [];
-      this.championshipId = "";
-      this.tournamentId = "";
-      this.stageId = "";
-    }
-
-    this.saveGroups = function (saveGroupsModel){
+    this.saveGroups = function (championshipId, tournamentId, stageId, groups){
       return $http({
         url: '/groups',
         method: 'POST',
         dataType: 'json',
         data: {
-          saveGroupsModel: saveGroupsModel
+          championshipId: championshipId,
+          tournamentId: tournamentId,
+          stageId: stageId,
+          groups: groups
         }
       });
     }

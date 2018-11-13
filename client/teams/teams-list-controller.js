@@ -10,13 +10,9 @@
     this.loadTeams = function (){
       _this.loading = true;
       _this.message = "";
-      // Construct Teams Search Model
-      var teamsSearchModel = new teamHttpService.getTeamsSearchModel();
-      teamsSearchModel.name = _this.enteredTeam;
-      teamsSearchModel.continent = _this.selectedContinent;
-      teamsSearchModel.skip = _this.teams.length;
       // Call Teams $http
-      teamHttpService.getTeams(teamsSearchModel)
+      teamHttpService.getTeams(_this.enteredTeam, _this.selectedContinent,
+        _this.teams.length, championshipParamService.teamsLimit)
       .then(function(response){
         _this.teams.push.apply(_this.teams, response.data);
         _this.loading = false;

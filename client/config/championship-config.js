@@ -22,13 +22,9 @@
       caseInsensitiveMatch: true,
       resolve: {
         championship: function($route, tournamentHttpService) {
-          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
-          tournamentSearchModel.championshipId = $route.current.params.championshipId;
-          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
-          tournamentSearchModel.loadTournamentTeams = true;
-          tournamentSearchModel.loadStages = true;
-          tournamentSearchModel.loadGroups = true;
-          return tournamentHttpService.getTournament(tournamentSearchModel)
+          return tournamentHttpService.getTournament(
+            $route.current.params.championshipId,
+            $route.current.params.tournamentId)
           .then(function(response){
             return response.data;
           })
@@ -44,11 +40,9 @@
       caseInsensitiveMatch: true,
       resolve: {
         championship: function($route, tournamentHttpService){
-          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
-          tournamentSearchModel.championshipId = $route.current.params.championshipId;
-          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
-          tournamentSearchModel.loadTournamentTeams = true;
-          return tournamentHttpService.getTournament(tournamentSearchModel)
+          return tournamentHttpService.getTournament(
+            $route.current.params.championshipId,
+            $route.current.params.tournamentId)
           .then(function(response){
             return response.data;
           })
@@ -64,12 +58,9 @@
       caseInsensitiveMatch: true,
       resolve: {
         championship: function($route, tournamentHttpService){
-          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
-          tournamentSearchModel.championshipId = $route.current.params.championshipId;
-          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
-          tournamentSearchModel.loadStages = true;
-          tournamentSearchModel.loadGroups = true;
-          return tournamentHttpService.getTournament(tournamentSearchModel)
+          return tournamentHttpService.getTournament(
+            $route.current.params.championshipId,
+            $route.current.params.tournamentId)
           .then(function(response){
             return response.data;
           })
@@ -85,11 +76,9 @@
       caseInsensitiveMatch: true,
       resolve: {
         championship: function($route, tournamentHttpService){
-          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
-          tournamentSearchModel.championshipId = $route.current.params.championshipId;
-          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
-          tournamentSearchModel.loadTournamentTeams = true;
-          return tournamentHttpService.getTournament(tournamentSearchModel)
+          return tournamentHttpService.getTournament(
+            $route.current.params.championshipId,
+            $route.current.params.tournamentId)
           .then(function(response){
             return response.data;
           })
@@ -105,13 +94,9 @@
       caseInsensitiveMatch: true,
       resolve: {
         championship: function($route, tournamentHttpService){
-          var tournamentSearchModel = new tournamentHttpService.tournamentSearchModel();
-          tournamentSearchModel.championshipId = $route.current.params.championshipId;
-          tournamentSearchModel.tournamentId = $route.current.params.tournamentId;
-          tournamentSearchModel.loadTournamentTeams = true;
-          tournamentSearchModel.loadStages = true;
-          tournamentSearchModel.loadGroups = true;
-          return tournamentHttpService.getTournament(tournamentSearchModel)
+          return tournamentHttpService.getTournament(
+            $route.current.params.championshipId,
+            $route.current.params.tournamentId)
           .then(function(response){
             return response.data;
           })

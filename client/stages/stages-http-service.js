@@ -12,19 +12,15 @@
       this.no_of_legs = 0;
     }
 
-    this.saveStagesModel = function () {
-      this.championshipId = "";
-      this.tournamentId = "";
-      this.stages = [];
-    }
-
-    this.saveStages = function (saveStagesModel){
+    this.saveStages = function (championshipId, tournamentId, stages){
       return $http({
         url: '/stages',
         method: 'POST',
         dataType: 'json',
         data: {
-          saveStagesModel: saveStagesModel
+          championshipId: championshipId,
+          tournamentId: tournamentId,
+          stages: stages
         }
       });
     }

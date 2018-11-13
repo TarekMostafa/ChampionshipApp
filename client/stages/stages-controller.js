@@ -9,12 +9,8 @@
     this.stages = this.tournament.stages;
 
     this.saveStages = function () {
-      var saveStagesModel = new stagesHttpService.saveStagesModel();
-      saveStagesModel.championshipId = championship._id;
-      saveStagesModel.tournamentId = _this.tournament._id;
-      saveStagesModel.stages = _this.stages;
       // Call Http post request
-      stagesHttpService.saveStages(saveStagesModel)
+      stagesHttpService.saveStages(championship._id, _this.tournament._id, _this.stages)
       .then(function(response){
         $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
       })

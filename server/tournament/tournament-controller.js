@@ -4,7 +4,7 @@ var tournamentDb = require('./tournament-db');
 var router = express.Router();
 
 router.put('/', function(req, res){
-  tournamentDb.addTournament(req.body.addTournamentModel, function(err){
+  tournamentDb.addTournament(req.body, function(err){
     if(err) {
       res.status(500).send(err);
     } else {
@@ -14,7 +14,7 @@ router.put('/', function(req, res){
 });
 
 router.post('/', function(req, res){
-  tournamentDb.editTournament(req.body.editTournamentModel, function(err){
+  tournamentDb.editTournament(req.body, function(err){
     if(err) {
       res.status(500).send(err);
     } else {
@@ -24,7 +24,7 @@ router.post('/', function(req, res){
 });
 
 router.get('/', function(req, res){
-  tournamentDb.getTournament(req.query.tournamentSearchModel,
+  tournamentDb.getTournament(req.query,
     function(err, championship){
     if(err) {
       res.status(500).send(err);

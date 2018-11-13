@@ -2,19 +2,16 @@
   var myApp = angular.module("championshipApp");
   myApp.service("tournamentTeamsHttpService", function($http){
 
-    this.saveTournamentTeamsModel = function () {
-      this.championshipId = "";
-      this.tournamentId = "";
-      this.tournamentTeams = [];
-    }
-
-    this.saveTournamentTeams = function (saveTournamentTeamsModel){
+    this.saveTournamentTeams = function (championshipId, tournamentId,
+      tournamentTeams){
       return $http({
         url: '/tournament-teams',
         method: 'POST',
         dataType: 'json',
         data: {
-          saveTournamentTeamsModel: saveTournamentTeamsModel
+          championshipId: championshipId,
+          tournamentId: tournamentId,
+          tournamentTeams: tournamentTeams
         }
       });
     }

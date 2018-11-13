@@ -25,8 +25,8 @@
     this.stageTypeChange = function() {
       if(_this.stage.type === "Knockout"){
         _this.Knockout_readonly = true;
-        _this.stage.no_out_teams = (_this.stage.no_in_teams/2);
-        _this.stage.no_of_groups = 1;
+        _this.stage.no_out_teams = Math.floor(_this.stage.no_in_teams/2);
+        _this.stage.no_of_groups = Math.floor(_this.stage.no_in_teams/2);
       } else {
         _this.Knockout_readonly = false;
       }

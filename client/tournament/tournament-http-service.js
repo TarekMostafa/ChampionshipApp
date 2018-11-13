@@ -2,14 +2,6 @@
   var myApp = angular.module("championshipApp");
   myApp.service("tournamentHttpService", function($http){
 
-    this.tournamentSearchModel = function () {
-      this.championshipId = "";
-      this.tournamentId = "";
-      this.loadTournamentTeams = false;
-      this.loadStages = false;
-      this.loadGroups = false;
-    }
-
     this.getTournamentModel = function () {
       this.name = "";
       this.no_of_teams = 0;
@@ -17,43 +9,38 @@
       this.current_stage = null;
     }
 
-    this.addTournamentModel = function () {
-      this.championshipId = "";
-      this.tournament = {};
-    }
-
-    this.editTournamentModel = function () {
-      this.championshipId = "";
-      this.tournament = {};
-    }
-
-    this.addTournament = function (addTournamentModel){
+    this.addTournament = function (championshipId, tournament){
       return $http({
         url: '/tournament',
         method: 'PUT',
         dataType: 'json',
         data: {
-          addTournamentModel: addTournamentModel
+          championshipId: championshipId,
+          tournament: tournament
         }
       });
     }
 
-    this.editTournament = function (editTournamentModel){
+    this.editTournament = function (championshipId, tournament){
       return $http({
         url: '/tournament',
         method: 'POST',
         dataType: 'json',
         data: {
-          editTournamentModel: editTournamentModel
+          championshipId: championshipId,
+          tournament: tournament
         }
       });
     }
 
-    this.getTournament = function (tournamentSearchModel) {
+    this.getTournament = function (championshipId, tournamentId) {
       return $http({
         url: '/tournament',
         method: 'GET',
-        params: {tournamentSearchModel}
+        params: {
+          championshipId: championshipId,
+          tournamentId: tournamentId
+        }
       });
     }
 

@@ -17,11 +17,9 @@
 
     this.saveDialog = function() {
       _this.disableSaveButton = true;
-      addTournamentModel = new tournamentHttpService.addTournamentModel();
-      addTournamentModel.championshipId = _this.selectedChampionship._id;
-      addTournamentModel.tournament = _this.tournament;
       // Call Http put request
-      tournamentHttpService.addTournament(addTournamentModel)
+      tournamentHttpService.addTournament(_this.selectedChampionship._id,
+        _this.tournament)
       .then(function(response){
         $mdDialog.hide(response.data);
       }).catch(function(err){

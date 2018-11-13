@@ -2,21 +2,13 @@
   'use strict';
   var myApp = angular.module("championshipApp");
   myApp.controller("matchesController", function(championship,
-    championshipParamService, matchesHttpService){
+    championshipParamService, matchesHttpService, $mdToast){
 
     var _this = this;
     this.flagsServerPath = championshipParamService.flagsServerPath;
     this.tournament = championship.tournaments[0];
     this.currentStage = _this.tournament.current_stage;
-    this.matches = [];
     this.disableGenerate = false;
-
-    this.extractMatchesfromStage = function () {
-      _this.matches = [];
-      for(let group of _this.currentStage.groups) {
-        _this.matches = _this.matches.concat(group.group_matches);
-      }
-    }
 
     this.generateMatches = function () {
       _this.disableGenerate = true;
@@ -27,6 +19,16 @@
       })
       .catch(function(err){
       });
+    }
+
+    this.saveMatches = function () {
+      matchesHttpService.saveMatches(championship._id, _this.tournament._id, _this.currentStage._id)
+      .then(function(response){
+        $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
+      })
+      .catch(function(err){
+        $mdToast.show($mdToast.simple().textContent(err).hideDelay(3000));
+      })
     }
 
   });

@@ -6,7 +6,7 @@
       </h2>
     </section>
     <section layout-align="end center">
-      <md-button class="md-fab md-mini" aria-label="Save Groups">
+      <md-button class="md-fab md-mini" aria-label="Save Groups" ng-click="matchesCtrl.saveMatches()">
         <md-icon ng-bind="'save'"></md-icon>
         <md-tooltip md-direction="bottom">Save Groups</md-tooltip>
       </md-button>
@@ -15,9 +15,9 @@
   <md-content>
     <md-button class="md-raised md-primary" ng-click="matchesCtrl.generateMatches()"
       ng-disabled="matchesCtrl.disableGenerate">Generate Matches</md-button>
-    <md-list ng-cloak>
-      <md-list-item ng-repeat = "match in matchesCtrl.matches">
-        <match-directive team1="match.team1" team2="match.team2"
+    <md-list ng-cloak ng-repeat = "group in matchesCtrl.currentStage.groups">
+      <md-list-item ng-repeat = "groupMatch in group.group_matches">
+        <match-directive team1="groupMatch.team1" team2="groupMatch.team2"
           flagsserverpath="{{matchesCtrl.flagsServerPath}}">
         </match-directive>
         <md-divider></md-divider>

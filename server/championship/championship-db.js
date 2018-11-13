@@ -36,8 +36,7 @@ var editChampionship = function (inChampionship, callBack) {
 // Retrieve all Championships that exists in MongoDB
 // without tournament teams and tournament stages
 var getChampionships = function (callBack) {
-  championshipModel.find(
-    {},
+  championshipModel.find({},
     {"tournaments.tournament_teams": 0, "tournaments.stages":0}
   )
   .then(function(championships){

@@ -4,7 +4,7 @@ var championshipDb = require('./championship-db');
 var router = express.Router();
 
 router.put('/', function(req, res){
-  championshipDb.addChampionship(req.body.addChampionshipModel, function(err){
+  championshipDb.addChampionship(req.body, function(err){
     if(err) {
       res.status(500).send(err);
     } else {
@@ -14,7 +14,7 @@ router.put('/', function(req, res){
 });
 
 router.post('/', function(req, res){
-  championshipDb.editChampionship(req.body.championship, function(err){
+  championshipDb.editChampionship(req.body, function(err){
     if(err) {
       res.status(500).send(err);
     } else {

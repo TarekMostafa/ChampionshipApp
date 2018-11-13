@@ -8,7 +8,7 @@
     this.flagsServerPath = championshipParamService.flagsServerPath;
     this.tournament = championship.tournaments[0];
     this.availableTeams = this.tournament.tournament_teams;
-    this.groups = this.tournament.current_stage.groups;
+    this.groups = [];
     this.selectedGroupNumber = undefined;
 
     function setGroups() {
@@ -36,6 +36,7 @@
 
     (function () {
       if(_this.tournament.current_stage !== null) {
+        _this.groups = _this.tournament.current_stage.groups;
         setGroups();
       }
       // Set new property selected to availableTeams
@@ -73,13 +74,9 @@
     }
 
     this.saveGroups = function () {
-      var saveGroupsModel = new groupsHttpService.saveGroupsModel();
-      saveGroupsModel.groups = _this.groups;
-      saveGroupsModel.championshipId = championship._id;
-      saveGroupsModel.tournamentId = _this.tournament._id;
-      saveGroupsModel.stageId = _this.tournament.current_stage._id;
       // Call Http post request
-      groupsHttpService.saveGroups(saveGroupsModel)
+      groupsHttpService.saveGroups(championship._id, _this.tournament._id,
+        _this.tournament.current_stage._id, _this.groups)
       .then(function(response){
         $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
       })

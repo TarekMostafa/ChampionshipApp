@@ -13,13 +13,11 @@
     this.flagsServerPath = championshipParamService.flagsServerPath;
 
     this.saveTournamentTeams = function () {
-      var saveTournamentTeamsModel = new tournamentTeamsHttpService.saveTournamentTeamsModel();
-      saveTournamentTeamsModel.championshipId = championship._id;
-      saveTournamentTeamsModel.tournamentId = _this.tournament._id;
       _this.tournamentTeams.forEach(function(item, index, arr){
-        saveTournamentTeamsModel.tournamentTeams.push({team:item});
+        _this.tournament.tournament_teams.push({team:item});
       });
-      tournamentTeamsHttpService.saveTournamentTeams(saveTournamentTeamsModel)
+      tournamentTeamsHttpService.saveTournamentTeams(championship._id,
+        _this.tournament._id, _this.tournament.tournament_teams)
       .then(function(response){
         $mdToast.show($mdToast.simple().textContent(response.data).hideDelay(3000));
       })
@@ -29,10 +27,8 @@
     }
 
     this.queryTeams = function (queryText) {
-      // Construct Teams Search Model
-      var teamsSearchModel = new teamHttpService.getTeamsSearchModel();
-      teamsSearchModel.name = queryText;
-      return teamHttpService.getTeams(teamsSearchModel)
+      return teamHttpService.getTeams(queryText, '', 0,
+        championshipParamService.teamsLimit)
       .then(function(response){
         return response.data;
       })

@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var logger = require('../global-modules/winston-logger');
 var championshipModel = require('../championship/championship-model').championshipModel;
 
-var addTournament = function (addTournamentModel, callBack){
+var addTournament = function (params, callBack){
   championshipModel.findOneAndUpdate(
-    {_id: addTournamentModel.championshipId},
-    {$push: {tournaments: addTournamentModel.tournament}}
+    {_id: params.championshipId},
+    {$push: {tournaments: params.tournament}}
   )
   .then(function(){
     callBack(null);
@@ -16,17 +16,17 @@ var addTournament = function (addTournamentModel, callBack){
   });
 }
 
-var editTournament = function (editTournamentModel, callBack){
+var editTournament = function (params, callBack){
   var updateObj = {
-    "tournaments.$[elem].name": editTournamentModel.tournament.name,
-    "tournaments.$[elem].no_of_teams": editTournamentModel.tournament.no_of_teams,
-    "tournaments.$[elem].year": editTournamentModel.tournament.year
+    "tournaments.$[elem].name": params.tournament.name,
+    "tournaments.$[elem].no_of_teams": params.tournament.no_of_teams,
+    "tournaments.$[elem].year": params.tournament.year
   };
 
-  var arrayFilters = [ { "elem._id": mongoose.Types.ObjectId(editTournamentModel.tournament._id) } ];
+  var arrayFilters = [ { "elem._id": mongoose.Types.ObjectId(params.tournament._id) } ];
 
   championshipModel.findOneAndUpdate(
-    {_id: editTournamentModel.championshipId},
+    {_id: params.championshipId},
     {$set: updateObj},
     {arrayFilters : arrayFilters, returnNewDocument: true}
   )
@@ -39,48 +39,21 @@ var editTournament = function (editTournamentModel, callBack){
   });
 }
 
-var getTournament = function (tournamentSearchModel, callBack){
-  // Check tournamentSearchModel Parameter
-  if(typeof tournamentSearchModel === "string") {
-    tournamentSearchModel = JSON.parse(tournamentSearchModel);
-  } else {
-    tournamentSearchModel = {};
-  }
-
-  var projection = {};
-  // Check loadTournamentTeams Property
-  // Project tournament_teams if loadTournamentTeams not defined or false
-  if(!tournamentSearchModel.hasOwnProperty("loadTournamentTeams") ||
-    !tournamentSearchModel.loadTournamentTeams){
-    projection["tournaments.tournament_teams"] = 0;
-  }
-  // Check loadStages Property
-  // Project stages if loadStages not defined or false
-  if(!tournamentSearchModel.hasOwnProperty("loadStages") ||
-    !tournamentSearchModel.loadStages){
-    projection["tournaments.stages"] = 0;
-  } else {
-    // Check loadGroups Property
-    // Project groups if loadGroups not defined or false
-    if(!tournamentSearchModel.hasOwnProperty("loadGroups") ||
-      !tournamentSearchModel.loadGroups) {
-        projection["tournaments.stages.groups"] = 0;
-      }
-  }
-
+var getTournament = function (params, callBack){
   championshipModel.findOne(
     {
-      "_id": mongoose.Types.ObjectId(tournamentSearchModel.championshipId),
-      "tournaments._id": mongoose.Types.ObjectId(tournamentSearchModel.tournamentId)
+      "_id": mongoose.Types.ObjectId(params.championshipId),
+      "tournaments": { $elemMatch: {_id:mongoose.Types.ObjectId(params.tournamentId)} }
     },
-    projection
+    {
+      "name" : 1, "tournaments.$" : 1
+    }
   )
   .then(function(championship){
     callBack(null, championship);
   })
   .catch(function(error) {
     logger.error("mongoose [getTournament] : " + error);
-    mongooseConnection.close();
     callBack(error);
   });
 }

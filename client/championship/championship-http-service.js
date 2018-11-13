@@ -2,18 +2,18 @@
   var myApp = angular.module("championshipApp");
   myApp.service("championshipHttpService", function($http){
 
-    this.addChampionshipModel = function () {
+    this.getChampionshipModel = function () {
       this.name = "";
     }
 
-    this.addChampionship = function (addChampionshipModel){
+    this.addChampionship = function (championship){
       // Return Http PUT Request
       return $http({
         url: '/championship',
         method: 'PUT',
         dataType: 'json',
         data: {
-          addChampionshipModel: addChampionshipModel
+          name: championship.name
         }
       });
     }
@@ -25,7 +25,8 @@
         method: 'POST',
         dataType: 'json',
         data: {
-          championship: championship
+          _id: championship._id,
+          name: championship.name
         }
       });
     }
