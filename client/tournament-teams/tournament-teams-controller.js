@@ -13,6 +13,7 @@
     this.flagsServerPath = championshipParamService.flagsServerPath;
 
     this.saveTournamentTeams = function () {
+      _this.tournament.tournament_teams = [];
       _this.tournamentTeams.forEach(function(item, index, arr){
         _this.tournament.tournament_teams.push({team:item});
       });

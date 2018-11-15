@@ -4,11 +4,11 @@ var teamDb = require('./teams-db');
 var router = express.Router();
 
 router.get('/', function(req, res){
-  teamDb.getTeams(req.query, function(err, data){
+  teamDb.getTeams(req.query, function(err, teams){
       if(err) {
-        res.status(500).send(err);
+        res.status(err).send();
       } else {
-        res.json(data);
+        res.json(teams);
       }
   });
 });
@@ -16,7 +16,7 @@ router.get('/', function(req, res){
 router.get('/continents', function(req,res){
   teamDb.getTeamsContinents(function(err, continent){
     if(err) {
-      res.status(500).send(err);
+      res.status(err).send();
     } else {
       res.json(continent);
     }

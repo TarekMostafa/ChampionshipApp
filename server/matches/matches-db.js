@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var _ = require('lodash');
 var logger = require('../global-modules/winston-logger');
 var championshipModel = require('../championship/championship-model').championshipModel;
 var matchSchema = require('./matches-model').matchSchema;
@@ -6,6 +7,22 @@ var matchSchema = require('./matches-model').matchSchema;
 // Generate Matches for Groups Automatically
 // by updating Group Schema and add group_matches property
 var generateMatches = function (params, callBack) {
+  // Validate Input parameters
+  // Validate Championship Id
+  if(_.isNil(params.championshipId) || _.isEmpty(params.championshipId)) {
+    callBack(400);
+    return;
+  }
+  // Validate Tournament Id
+  if(_.isNil(params.tournamentId) || _.isEmpty(params.tournamentId)) {
+    callBack(400);
+    return;
+  }
+  // Validate Stage Id
+  if(_.isNil(params.stageId) || _.isNaN(_.parseInt(params.stageId))) {
+    callBack(400);
+    return;
+  }
   // Get Tournament Stage
   var query = {
     "_id": params.championshipId,
@@ -13,11 +30,7 @@ var generateMatches = function (params, callBack) {
   }
   championshipModel.findOne(query, {"tournaments.$" : 1})
   .then(function(championship){
-    return championship.tournaments[0].stages.find(function(stage){
-      if(stage._id == params.stageId) {
-        return stage;
-      }
-    });
+    return _.find(championship.tournaments[0].stages, {_id: _.parseInt(params.stageId)});
   })
   .then(function(stage){
     setMatches(stage);
@@ -30,6 +43,22 @@ var generateMatches = function (params, callBack) {
 }
 
 var saveMatches = function (params, callBack) {
+  // Validate Input parameters
+  // Validate Championship Id
+  if(_.isNil(params.championshipId) || _.isEmpty(params.championshipId)) {
+    callBack(400);
+    return;
+  }
+  // Validate Tournament Id
+  if(_.isNil(params.tournamentId) || _.isEmpty(params.tournamentId)) {
+    callBack(400);
+    return;
+  }
+  // Validate Stage Id
+  if(_.isNil(params.stageId) || _.isNaN(_.parseInt(params.stageId))) {
+    callBack(400);
+    return;
+  }
   // Get Tournament Stage
   var query = {
     "_id": params.championshipId,
@@ -37,11 +66,7 @@ var saveMatches = function (params, callBack) {
   }
   championshipModel.findOne(query, {"tournaments.$" : 1})
   .then(function(championship){
-    var stage = championship.tournaments[0].stages.find(function(stage){
-      if(stage._id == params.stageId) {
-        return stage;
-      }
-    });
+    var stage = _.find(championship.tournaments[0].stages, {_id: _.parseInt(params.stageId)});
     return {
       stage: stage,
       tournament: championship.tournaments[0]
@@ -110,7 +135,7 @@ var setMatches = function (stage) {
     // Declare and Initialize group_matches Property
     group.group_matches = [];
     // Copy group Teams of this Group
-    let group_teams = JSON.parse(JSON.stringify(group.group_teams));
+    let group_teams = _.cloneDeep(group.group_teams);
     // add dummy team if group contains odd number of teams
     if(group_teams.length % 2 != 0){
       group_teams.push({

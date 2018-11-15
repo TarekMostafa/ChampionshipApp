@@ -6,7 +6,7 @@ var router = express.Router();
 router.put('/', function(req, res){
   championshipDb.addChampionship(req.body, function(err){
     if(err) {
-      res.status(500).send(err);
+      res.status(err).send();
     } else {
       res.status(200).send("Championship was added successfully");
     }
@@ -16,7 +16,7 @@ router.put('/', function(req, res){
 router.post('/', function(req, res){
   championshipDb.editChampionship(req.body, function(err){
     if(err) {
-      res.status(500).send(err);
+      res.status(err).send();
     } else {
       res.status(200).send("Championship was updated successfully");
     }
@@ -26,9 +26,19 @@ router.post('/', function(req, res){
 router.get('/', function(req, res){
   championshipDb.getChampionships(function(err, championships){
     if(err) {
-      res.status(500).send(err);
+      res.status(err).send();
     } else {
       res.json(championships);
+    }
+  });
+});
+
+router.delete('/', function(req, res){
+  championshipDb.removeChampionship(req.body, function(err){
+    if(err) {
+      res.status(err).send();
+    } else {
+      res.status(200).send("Championship was deleted successfully");
     }
   });
 });

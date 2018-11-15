@@ -6,7 +6,7 @@ var router = express.Router();
 router.post('/', function(req, res){
   matchesDb.saveMatches(req.body, function(err){
     if(err) {
-      res.status(500).send(err);
+      res.status(err).send();
     } else {
       res.status(200).send("Matches were saved successfully");
     }
@@ -16,7 +16,7 @@ router.post('/', function(req, res){
 router.get('/generateMatches', function(req, res){
   matchesDb.generateMatches(req.query, function(err, stage){
     if(err) {
-      res.status(500).send(err);
+      res.status(err).send();
     } else {
       res.json(stage);
     }
