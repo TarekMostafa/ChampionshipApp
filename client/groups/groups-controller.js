@@ -2,7 +2,7 @@
   'use strict';
   var myApp = angular.module("championshipApp");
   myApp.controller("groupsController", function(championship,
-    championshipParamService, groupsHttpService, $mdToast){
+    championshipParamService, groupsHttpService, $mdToast, _){
 
     var _this = this;
     this.flagsServerPath = championshipParamService.flagsServerPath;
@@ -35,7 +35,7 @@
     }
 
     (function () {
-      if(_this.tournament.current_stage !== null) {
+      if(!_.isNil(_this.tournament.current_stage)) {
         _this.groups = _this.tournament.current_stage.groups;
         setGroups();
       }
