@@ -6,7 +6,17 @@
         {{team1.name}}
       </md-card-content>
     </md-card>
-    Vs
+    <div layout="row">
+      <md-input-container class="md-block">
+        <input type="number" step="any" name="team1score" min="0" size="10"
+                 max="999" ng-pattern="/^[0-9]$/" md-no-autogrow/>
+      </md-input-container>
+      <span>Vs</span>
+      <md-input-container class="md-block">
+        <input type="number" step="any" name="team2score" min="0" size="10"
+                 max="999" ng-pattern="/^[0-9]$/" md-no-autogrow/>
+      </md-input-container>
+    </div>
     <md-card>
       <img ng-src="{{flagsserverpath}}{{team2.flag_location}}" alt=""/>
       <md-card-content layout="row" layout-align="center center">

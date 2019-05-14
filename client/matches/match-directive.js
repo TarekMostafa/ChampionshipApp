@@ -6,7 +6,8 @@
       scope: {
         team1: '=',
         team2: '=',
-        flagsserverpath: '@'
+        flagsserverpath: '@',
+        mode: '@'
       },
       templateUrl: "/client/matches/match-directive.html",
     }

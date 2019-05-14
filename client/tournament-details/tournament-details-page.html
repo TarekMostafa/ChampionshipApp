@@ -18,7 +18,14 @@
       </md-tab>
       <md-tab label="matches">
         <md-content class="md-padding">
-          <h1 class="md-display-2">Matches</h1>
+          <md-list ng-cloak ng-repeat = "group in tournamentDetailsCtrl.groups">
+            <md-list-item ng-repeat = "groupMatch in group.group_matches">
+              <match-directive team1="groupMatch.team1" team2="groupMatch.team2"
+                flagsserverpath="{{tournamentDetailsCtrl.flagsServerPath}}">
+              </match-directive>
+              <md-divider></md-divider>
+            </md-list-item>
+          </md-list>
         </md-content>
       </md-tab>
     </md-tabs>

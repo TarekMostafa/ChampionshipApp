@@ -1,7 +1,7 @@
 (function () {
   myApp = angular.module("championshipApp");
   myApp.controller("tournamentDetailsController", function(championship,
-    championshipParamService){
+    championshipParamService, _){
 
     _this = this;
     this.tournament = championship.tournaments[0];
@@ -13,7 +13,7 @@
     this.flagsServerPath = championshipParamService.flagsServerPath;
 
     (function () {
-      if(_this.tournament.stages.length === 0) {
+      if(_.isNil(_this.tournament.stages) || _.isNil(_this.tournament.current_stage)) {
         return;
       }
       _this.groups = _this.tournament.current_stage.groups;
